@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <style type="text/css" >
+      <![CDATA[
+
+        text {
+				-webkit-user-select:none;
+				-moz-user-select:none;
+				-ms-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				cursor:default;
+        }
+
+      ]]>
+    </style>
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4173">
+      <stop
+         style="stop-color:#c90000;stop-opacity:1;"
+         offset="0"
+         id="stop4175" />
+      <stop
+         style="stop-color:#c90000;stop-opacity:0;"
+         offset="1"
+         id="stop4177" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4259">
+      <stop
+         style="stop-color:#0999c9;stop-opacity:1;"
+         offset="0"
+         id="stop4261" />
+      <stop
+         style="stop-color:#0999c9;stop-opacity:0;"
+         offset="1"
+         id="stop4263" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient4259"
+       id="linearGradient4265"
+       x1="254.91052"
+       y1="179.36568"
+       x2="171.46808"
+       y2="180.36568"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       xlink:href="#linearGradient4173"
+       id="linearGradient4179"
+       x1="0.69052784"
+       y1="170.99274"
+       x2="78.532227"
+       y2="178.0638"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     id="layer1"
+     style="display:inline">
+    <path
+       style="opacity:1;fill:url(#linearGradient4179);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.70700002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 0.733281,1.9096069 C 18.0385,4.0186289 12.780608,36.183637 13.016256,47.993763 c 0.19319,9.682228 0.180962,60.869297 0.114975,125.896427 -0.05834,50.10315 -0.114974,100.6357 -0.114974,138.90076 0,7.42047 -5.523427,-16.08212 21.203962,-22.21367 16.999386,-3.89984 15.145686,-19.00604 15.145686,-38.78469 L 49.289619,173.29212 49.894554,64.751657 49.4135,31.456129 C 49.4135,5.3960636 0.735688,1.7645345 0.735688,1.7645345"
+       id="path3336" />
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28.27194977px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold Italic';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="27.335537"
+     y="-26.004181"
+     id="text4352"
+     transform="matrix(0,1,-1,0,0,0)"><tspan
+       id="tspan4354"
+       x="27.335537"
+       y="-26.004181">Opciones</tspan></text>
+</svg>
