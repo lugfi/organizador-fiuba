@@ -1251,7 +1251,7 @@
 	  });
 	  
       var xhr = new XMLHttpRequest();
-        xhr.open('GET', "Horarios_1Q2016.csv", true);
+        xhr.open('GET', "Horarios_2Q2016.csv", true);
         xhr.responseType = 'blob';
         xhr.onload = function(e) {
             if (this.status == 200) {
@@ -1288,7 +1288,7 @@
 	
 	var colors = ["255,0,0", "0,255,0", "0,0,255" , "235,232,79" , "85,221,223", "231,119,21", "186,6,189" , "132,204,9" , "106,74,11"];
 	
-	var cuatriActual = "1Q2016";
+	var cuatriActual = "2Q2016";
 	
 	var cuatriDatos = cuatriActual;
 	
