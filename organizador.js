@@ -843,17 +843,28 @@
 			clearTimeout(timerMsj);
 	}
 	
+	function toUpperSinTilde(str){
+			str = str.toUpperCase();
+			str = str.replace("Á", "A");
+			str = str.replace("É", "E");
+			str = str.replace("Í", "I");
+			str = str.replace("Ó", "O");
+			str = str.replace("Ú", "U");
+			str = str.replace("ñ", "Ñ");
+			return str;
+	}
+	
 	function timerBusqueda(){
 	
  		str = document.getElementById("buscar").value;
-		str = str.toUpperCase();
+		str = toUpperSinTilde(str);
 		
 		var encontradas = 0;
 		
 		var html = "";
 		
 		for(var i = 0;i<aDatos.length;i++){
-			if(aDatos[i][1].indexOf(str) != -1 || aDatos[i][2].indexOf(str) != -1){
+			if(aDatos[i][1].indexOf(str) != -1 || toUpperSinTilde(aDatos[i][2]).indexOf(str) != -1){
 				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a><br>";
  				encontradas++;
 				if(encontradas > 22) break;
