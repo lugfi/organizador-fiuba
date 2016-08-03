@@ -1111,6 +1111,9 @@
 				if(cuatriDatos == "1Q2016")
 					document.getElementById('textCuatri').innerHTML = "(1er Cuatrimestre 2016)";
 					
+				if(cuatriDatos == "2Q2016")
+					document.getElementById('textCuatri').innerHTML = "(2do Cuatrimestre 2016)";
+					
 				var i;
 				
 				for(var j=1;j<stringDatos.length;j++){
