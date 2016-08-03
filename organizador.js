@@ -860,11 +860,24 @@
 		str = toUpperSinTilde(str);
 		
 		var encontradas = 0;
-		
+		var correspondeAlPlan = 0;
 		var html = "";
-		
+		var pos;
+		var pos2;
+
 		for(var i = 0;i<aDatos.length;i++){
 			if(toUpperSinTilde(aDatos[i][1]).indexOf(str) != -1 || toUpperSinTilde(aDatos[i][2]).indexOf(str) != -1){
+				correspondeAlPlan = 0;
+				pos2 =  0;
+				while(aDatos[i][3].indexOf("Carreras:",pos2) != -1){
+					pos = aDatos[i][3].indexOf("Carreras:");
+					pos = aDatos[i][3].indexOf(" ",pos);
+					pos2 = aDatos[i][3].indexOf("\n",pos+1);
+					var carreras = aDatos[i][3].slice(pos+1,pos2-1);
+					if(validarCurso(carreras)==1) correspondeAlPlan = 1;
+				}				
+
+				if(correspondeAlPlan == 0) continue;
 				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a><br>";
  				encontradas++;
 				if(encontradas > 22) break;
@@ -1264,7 +1277,7 @@
 			document.getElementById('but5_sub').style.visibility = 'hidden';
 	  });
 	  
-      var xhr = new XMLHttpRequest();
+      	var xhr = new XMLHttpRequest();
         xhr.open('GET', "Horarios_2Q2016.csv", true);
         xhr.responseType = 'blob';
         xhr.onload = function(e) {
