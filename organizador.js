@@ -864,7 +864,7 @@
 		var html = "";
 		
 		for(var i = 0;i<aDatos.length;i++){
-			if(aDatos[i][1].indexOf(str) != -1 || toUpperSinTilde(aDatos[i][2]).indexOf(str) != -1){
+			if(toUpperSinTilde(aDatos[i][1]).indexOf(str) != -1 || toUpperSinTilde(aDatos[i][2]).indexOf(str) != -1){
 				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a><br>";
  				encontradas++;
 				if(encontradas > 22) break;
