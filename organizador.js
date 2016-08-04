@@ -689,6 +689,14 @@
 		return b;
 	}
 	
+	function siTodasCarrerasCheck(){
+		var b = 1;
+		for(var i=1;i<13;i++){
+			if(document.getElementById("car" + i).checked == false) b  = 0;
+		}
+		return b;
+	}
+	
 	function descargarHorarios(){
 		var str = "";
 		
@@ -859,15 +867,38 @@
  		str = document.getElementById("buscar").value;
 		str = toUpperSinTilde(str);
 		
+		if(allCheckFalse() == 1){
+			document.getElementById("buscadas").innerHTML = "Tenes que elegir alguna carrera";
+			return;
+		}
+		
 		var encontradas = 0;
 		
 		var html = "";
 		
 		for(var i = 0;i<aDatos.length;i++){
 			if(toUpperSinTilde(aDatos[i][1]).indexOf(str) != -1 || toUpperSinTilde(aDatos[i][2]).indexOf(str) != -1){
+			
+				if(aDatos[i][3].indexOf("Todas") == -1){
+					var filtrar = 1;
+					if(document.getElementById("car1").checked == true && aDatos[i][3].indexOf("Civil") != -1) filtrar = 0;
+					if(document.getElementById("car2").checked == true && aDatos[i][3].indexOf("Industrial") != -1) filtrar = 0;
+					if(document.getElementById("car3").checked == true && aDatos[i][3].indexOf("Naval") != -1) filtrar = 0;
+					if(document.getElementById("car4").checked == true && aDatos[i][3].indexOf("Agrim") != -1) filtrar = 0;
+					if(document.getElementById("car5").checked == true && aDatos[i][3].indexOf("Mecánica") != -1) filtrar = 0
+					if(document.getElementById("car6").checked == true && aDatos[i][3].indexOf("Electricista") != -1) filtrar = 0;
+					if(document.getElementById("car7").checked == true && aDatos[i][3].indexOf("Electrónica") != -1) filtrar = 0;
+					if(document.getElementById("car8").checked == true && aDatos[i][3].indexOf("Química") != -1) filtrar = 0;
+					if(document.getElementById("car9").checked == true && aDatos[i][3].indexOf("Sistemas") != -1) filtrar = 0;
+					if(document.getElementById("car10").checked == true && aDatos[i][3].indexOf("Informática") != -1) filtrar = 0;
+					if(document.getElementById("car11").checked == true && aDatos[i][3].indexOf("Alimentos") != -1) filtrar = 0;
+					if(document.getElementById("car12").checked == true && aDatos[i][3].indexOf("Ing.Agrim") != -1) filtrar = 0;	
+					if(filtrar == 1) continue;
+				}			
+			
 				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a><br>";
  				encontradas++;
-				if(encontradas > 22) break;
+				if(encontradas > 21) break;
 			}
 		}
 		
@@ -1273,7 +1304,6 @@
             }
         };
         xhr.send();
-
    }); 
    
     var resizing = 0;
