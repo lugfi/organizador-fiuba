@@ -1,6 +1,6 @@
 # Organizador FIUBA
 
-[Entrar](https://tinchou.github.io/organizador-fiuba/)
+[Entrar](https://lugfi.github.io/organizador-fiuba/)
 
 El organizador te ayuda a organizar las materias con un calendario semanal, mostrando superposiciones y permitiendo probar distintas combinaciones de cursos rapidamente.
 
@@ -10,7 +10,7 @@ Primer cuatrimestre de 2016.
 
 # Uso
 
-Una vez en el [sitio](https://tinchou.github.io/organizador-fiuba/), automáticamente se cargan los datos del último cuatrimestre actualizado.
+Una vez en el [sitio](https://lugfi.github.io/organizador-fiuba/), automáticamente se cargan los datos del último cuatrimestre actualizado.
 
 # Datos
 
