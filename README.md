@@ -36,4 +36,4 @@ Una vez en el [sitio](https://lugfi.github.io/organizador-fiuba/), automáticame
 # Creditos
 
 - Franco Spada es el autor original del organizador
-- [Martín Coll](https://github.com/lugfi) mantiene este repositorio y la versión web
+- [Martín Coll](https://github.com/tinchou) mantiene este repositorio y la versión web
