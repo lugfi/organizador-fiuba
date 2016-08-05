@@ -264,12 +264,29 @@
 			return "";
 		}	
 	}
+	
+	function noIfTrue(b){
+		if(b==1){
+			return "No";
+		}else{
+			return "";
+		}
+	}
+
+	function forzarMateria(i){
+		if(aMaterias[i].forzar == 0){
+			aMaterias[i].forzar = 1;
+		}else{
+			aMaterias[i].forzar = 0;
+		}
+		llenarLista();
+	}
 		
 	function llenarLista(){
 		document.getElementById("listaInfo").innerHTML = "";
 		var totalCursos = 0;
 		for(var i=0;i<aMaterias.length;i++){
-			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre + "</che> - <a style=\"font-color:blue\" onclick=\"editarMateria(" + i + ");\">Editar</a> - <a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a><br>";
+			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre.substr(0,55) + "</che> <br> <a style=\"font-color:blue\" onclick=\"editarMateria(" + i + ");\">Editar</a> - <a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a> - <a style=\"font-color:blue\" onclick=\"forzarMateria(" + i + ");\">" + noIfTrue(aMaterias[i].forzar) + " Forzar</a> <br>";
 			if(aMaterias[i].expanded == 0) continue;
 			for(var j=0;j<aMaterias[i].cursos.length;j++){
 				totalCursos++;
@@ -1029,39 +1046,23 @@
 	
 	function guardarEstado(){
 		var str = "";
-		var mat;
-		var cod;
-		var cursos;
-		var doc;
-		var horarios;
-		var p1;
-		var p2;
-
-
-		
-
-		for(var i=0;i<aDatos.length;i++){
-			
-			mat = aDatos[i][1];
-			cod = aDatos[i][2];
-			
-
-			while(aDatos[i][3].indexOf("  ")!=-1) aDatos[i][3] = aDatos[i][3].replace("  "," ");
-			while(aDatos[i][3].indexOf("\n\n")!=-1) aDatos[i][3] = aDatos[i][3].replace("\n\n","\n");
-
-			cursos = aDatos[i][3].split("Materia: ");
-
-			for(var j=1;j<cursos.length;j++){
-				p1 = cursos[j].indexOf("Docente: ");
-				p2 = cursos[j].indexOf("Carreras: ");
-				doc = cursos[j].substr(p1+9,p2-p1-11);
-				p1 = cursos[j].indexOf("Curso: ");
-				p2 = cursos[j].indexOf("\n",p1);
-				horarios = cursos[j].substr(p2+1);
-				str = str + "\"" + cod + "\";" + "\"" + mat + "\";" + "\"" + doc + "\";" + "\"" + horarios + "\";" + "\n";
+		for(var i=0;i<aMaterias.length;i++){
+			if(aMaterias[i].texto == "No editable"){
+				str += aMaterias[i].codigo + "," + aMaterias[i].nombre + "\n";
+				for(var j =0;j<aMaterias[i].cursos[0].clases.length;j++){
+					str += aMaterias[i].cursos[0].clases[j].dia + "," + aMaterias[i].cursos[0].clases[j].inicio + "," + aMaterias[i].cursos[0].clases[j].fin +   "\n";
+				}
+				
+				str += "<separador>";
+			}else{
+				str += aMaterias[i].texto + "<separador>";			
 			}
 		}
-
+		
+		for(i=0;i<aMaterias.length;i++){
+			str += aMaterias[i].sel + "," + aMaterias[i].cursoSel + "\n";
+		}
+		
 		var a = window.document.createElement('a');
 		a.href = window.URL.createObjectURL(new Blob([str], {type: 'text'}));
 		a.download = 'organizadorFiuba.txt';
@@ -1282,6 +1283,15 @@
 	  });
 	  
 	  $("#but5_1").click(function(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', "Horarios_1Q2015.csv", true);
+			xhr.responseType = 'blob';
+			xhr.onload = function(e) {
+				if (this.status == 200) {
+					openFileDatos({target: {files: [this.response]}});
+				}
+			};
+			xhr.send();
 			escribirMensaje("Cargados horarios 1er Cuatrimestre 2015",0);
 			cuatriDatos = "1Q2015";
 			document.getElementById('textCuatri').innerHTML = "(1er Cuatrimestre 2015)";
@@ -1289,9 +1299,66 @@
 	  });
 	  
 	  $("#but5_2").click(function(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', "Horarios_2Q2014.csv", true);
+			xhr.responseType = 'blob';
+			xhr.onload = function(e) {
+				if (this.status == 200) {
+					openFileDatos({target: {files: [this.response]}});
+				}
+			};
+			xhr.send();
 			escribirMensaje("Cargados horarios 2do Cuatrimestre 2014",0);
 			cuatriDatos = "2Q2014";
 			document.getElementById('textCuatri').innerHTML = "(2do Cuatrimestre 2014)";
+			document.getElementById('but5_sub').style.visibility = 'hidden';
+	  });
+	  
+	  $("#but5_3").click(function(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', "Horarios_2Q2015.csv", true);
+			xhr.responseType = 'blob';
+			xhr.onload = function(e) {
+				if (this.status == 200) {
+					openFileDatos({target: {files: [this.response]}});
+				}
+			};
+			xhr.send();
+			escribirMensaje("Cargados horarios 2do Cuatrimestre 2015",0);
+			cuatriDatos = "2Q2015";
+			document.getElementById('textCuatri').innerHTML = "(2do Cuatrimestre 2015)";
+			document.getElementById('but5_sub').style.visibility = 'hidden';
+	  });
+	  
+	   $("#but5_4").click(function(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', "Horarios_1Q2016.csv", true);
+			xhr.responseType = 'blob';
+			xhr.onload = function(e) {
+				if (this.status == 200) {
+					openFileDatos({target: {files: [this.response]}});
+				}
+			};
+			xhr.send();
+			escribirMensaje("Cargados horarios 1er Cuatrimestre 2016",0);
+			cuatriDatos = "1Q2016";
+			document.getElementById('textCuatri').innerHTML = "(1er Cuatrimestre 2016)";
+			document.getElementById('but5_sub').style.visibility = 'hidden';
+	  });
+	  
+		$("#but5_5").click(function(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', "Horarios_2Q2016.csv", true);
+			xhr.responseType = 'blob';
+			xhr.onload = function(e) {
+				if (this.status == 200) {
+					openFileDatos({target: {files: [this.response]}});
+				}
+			};
+			xhr.send();
+			escribirMensaje("Cargados horarios 2do Cuatrimestre 2016",0);
+			cuatriDatos = "2Q2016";
+			document.getElementById('textCuatri').innerHTML = "(2do Cuatrimestre 2016)";
 			document.getElementById('but5_sub').style.visibility = 'hidden';
 	  });
 	  
