@@ -483,7 +483,7 @@
 	}
 	
 	function getCellDescription(){
-		if(mouseColInCanvas > -1 && mouseColInCanvas < 6 && mouseRowInCanvas > -1 && mouseRowInCanvas < 35){
+		if(mouseColInCanvas > -1 && mouseColInCanvas < 6 && mouseRowInCanvas > -1 && mouseRowInCanvas < 34){
 			document.getElementById('descText').innerHTML = aDescCelda[mouseRowInCanvas + 34 * mouseColInCanvas];
 		}
 	}
@@ -1172,10 +1172,7 @@
 					aDatos[i][3] = linea[4];
 					
 					datosCargados = 1;
-					
-					escribirMensaje("Datos " + cuatriDatos + " cargados",0);
-					
-	
+					escribirMensaje("Cargados horarios " + cuatriDatos,0);	
 				}
 				
 			};
@@ -1292,7 +1289,7 @@
 				}
 			};
 			xhr.send();
-			escribirMensaje("Cargados horarios 1er Cuatrimestre 2015",0);
+			//escribirMensaje("Cargados horarios 1er Cuatrimestre 2015",0);
 			cuatriDatos = "1Q2015";
 			document.getElementById('textCuatri').innerHTML = "(1er Cuatrimestre 2015)";
 			document.getElementById('but5_sub').style.visibility = 'hidden';
@@ -1308,7 +1305,7 @@
 				}
 			};
 			xhr.send();
-			escribirMensaje("Cargados horarios 2do Cuatrimestre 2014",0);
+			//escribirMensaje("Cargados horarios 2do Cuatrimestre 2014",0);
 			cuatriDatos = "2Q2014";
 			document.getElementById('textCuatri').innerHTML = "(2do Cuatrimestre 2014)";
 			document.getElementById('but5_sub').style.visibility = 'hidden';
@@ -1324,7 +1321,7 @@
 				}
 			};
 			xhr.send();
-			escribirMensaje("Cargados horarios 2do Cuatrimestre 2015",0);
+			//escribirMensaje("Cargados horarios 2do Cuatrimestre 2015",0);
 			cuatriDatos = "2Q2015";
 			document.getElementById('textCuatri').innerHTML = "(2do Cuatrimestre 2015)";
 			document.getElementById('but5_sub').style.visibility = 'hidden';
@@ -1340,7 +1337,7 @@
 				}
 			};
 			xhr.send();
-			escribirMensaje("Cargados horarios 1er Cuatrimestre 2016",0);
+			//escribirMensaje("Cargados horarios 1er Cuatrimestre 2016",0);
 			cuatriDatos = "1Q2016";
 			document.getElementById('textCuatri').innerHTML = "(1er Cuatrimestre 2016)";
 			document.getElementById('but5_sub').style.visibility = 'hidden';
@@ -1356,7 +1353,7 @@
 				}
 			};
 			xhr.send();
-			escribirMensaje("Cargados horarios 2do Cuatrimestre 2016",0);
+			//escribirMensaje("Cargados horarios 2do Cuatrimestre 2016",0);
 			cuatriDatos = "2Q2016";
 			document.getElementById('textCuatri').innerHTML = "(2do Cuatrimestre 2016)";
 			document.getElementById('but5_sub').style.visibility = 'hidden';
