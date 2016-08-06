@@ -8,8 +8,9 @@
 
   <title>Organizador de Materias FIUBA</title>
 
-  <script src="jquery.min.js"></script>
-  <script src="organizador.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/organizador.js"></script>
 </head>
 
 <body>
@@ -45,11 +46,11 @@
 	<div id="listaInfo" style="padding:5px;overflow:auto;height:580px">
 
 	</div>
-	<object style="position:absolute;left:-40px;top:280px;width:50px;height:300px;" type="image/svg+xml" data="AgregarCurso.svg"></object>
+	<object style="position:absolute;left:-40px;top:280px;width:50px;height:300px;" type="image/svg+xml" data="images/AgregarCurso.svg"></object>
 </div>
 
 <div id="box2" style="position:absolute;right:-488px;top:30px;width:500px;height:600px;border-radius: 15px 0px 15px 15px; border-style:solid;border-color:rgb(29,173,221);border-width: 2px;z-index:4">
-	<object style="position:absolute;left:-40px;top:20px;width:50px;height:300px;"  type="image/svg+xml" data="BuscarMateria.svg"></object>
+	<object style="position:absolute;left:-40px;top:20px;width:50px;height:300px;"  type="image/svg+xml" data="images/BuscarMateria.svg"></object>
 
 	<div style="width:500px;height:5px;" align=center><font style="font-size:32px;"><ns>Buscar materia</ns></font><br> <font id="textCuatri" style="font-size:16px;color:green;">(Primero tenes que cargar los datos.)</font><br>
 	<ns>Agregar cursos solo de:<br>
@@ -191,7 +192,7 @@
 
 
 <div id="menu" style="position:absolute;top:60px;left:-122px;width:120px;height:400px;z-index:4" >
-<object style="position:relative;top:-5px;left:110px;width:52px;height:318px;"  type="image/svg+xml" data="opciones2.svg"></object>
+<object style="position:relative;top:-5px;left:110px;width:52px;height:318px;"  type="image/svg+xml" data="images/Opciones.svg"></object>
 	
 	<div id="but1" onclick="cHCrearHorario();" class="leftMenu"  style="position:absolute;top:50px;left:10px;width:110px;height:50px;">
 										<span style="position:absolute;top:50%;left:0px;margin:-20px 2px">Horario Extracurricular</span></div>
@@ -217,239 +218,6 @@
 			</div>
 </div>
 
-
-<style>
-a:link    {color:green;}
-a:visited {color:green;}
-a:hover   {color:rgb(9,53,201);}
-a:active  {color:yellow;}
-a{
--webkit-user-select: none; /* Chrome/Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+ */
--ms-user-select: none;
-user-select: none;
-cursor:pointer;
-}
-
-a.tab{
-	text-decoration: underline;
-	color: white;
-
-}
-a.tab:hover   {color:rgb(230,214,74);}
-
-che {
-color:darkred;
-text-decoration:underline;
-text-transform: capitalize;
--webkit-user-select: none; /* Chrome/Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+ */
--ms-user-select: none;
-user-select: none;
-cursor:pointer;
-}
-
-#descText{
-	-webkit-user-select: none; /* Chrome/Safari */        
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+ */
-	-ms-user-select: none;
-	user-select: none;
-	cursor:default;
-	color:darkblue;
-}
-
-msgText{
-color:green;
-text-decoration:underline;
--webkit-user-select: none; /* Chrome/Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+ */
--ms-user-select: none;
-user-select: none;
-cursor:pointer;
-}
-
-msgAlert{
-color:maroon;
-text-decoration:underline;
--webkit-user-select: none; /* Chrome/Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+ */
--ms-user-select: none;
-user-select: none;
-cursor:pointer;
-}
-
-ns{
--webkit-user-select: none; /* Chrome/Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+ */
--ms-user-select: none;
-user-select: none;
-cursor:default;
-}
-
-#cHTab{
-  background: -webkit-linear-gradient(left top,rgb(211,211,241),rgb(181,181,181)); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right,rgb(211,211,241), rgb(181,181,181)); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right,rgb(211,211,241), rgb(181,181,181)); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right,rgb(211,211,241), rgb(111,181,181)); /* Standard syntax */
-  border-color: rgb(0,0,180);
-}
-
-cHText{
-	/*color:rgb(230,230,230);*/
-	color:rgb(0,0,175);
-	text-decoration:underline;
-}
-
-rad {
-color:darkblue;
-text-size:8px;
-text-transform: capitalize;
--webkit-user-select: none; /* Chrome/Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+ */
--ms-user-select: none;
-user-select: none;
-cursor:default;
-}
-
-input.carcheck {
-background-color : #d1d1d1;
-}
-
-
-#menu{
-	background: -webkit-linear-gradient(left top,rgb(241,181,181),rgb(181,181,181)); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(bottom right,rgb(241,181,181), rgb(181,181,181)); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(bottom right,rgb(241,181,181), rgb(181,181,181)); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(to bottom right,rgb(241,181,181), rgb(255,255,255)); /* Standard syntax */
-	//background-color:rgb(255,255,255);
-	border-radius: 0px 15px 15px 0px;
-	border-style:solid;
-	border-color:rgb(160,60,60);
-	border-width: 4px;
-	opacity:0.9;
-}
-
-#editMatTab{
-  background: -webkit-linear-gradient(left top,rgb(211,211,211),rgb(181,181,181)); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right,rgb(211,211,211), rgb(181,181,181)); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right,rgb(211,211,211), rgb(181,181,181)); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right,rgb(211,211,211), rgb(111,111,111)); /* Standard syntax */
-}
-
-#menuLabel{
-	-webkit-user-select: none; /* Chrome/Safari */        
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+ */
-	-ms-user-select: none;
-	user-select: none;
-	cursor:default;
-}
-
-#svgLista{
-	-webkit-user-select: none;    
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	cursor:default;
-}
-
-#svgBox2{
-	-webkit-user-select: none; /* Chrome/Safari */        
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+ */
-	-ms-user-select: none;
-	user-select: none;
-	cursor:default;
-}
-
-div.leftMenu{
-	/*background-color:rgb(255,255,255);*/
-	-webkit-user-select: none; /* Chrome/Safari */        
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+ */
-	-ms-user-select: none;
-	user-select: none;
-	cursor:pointer;
-	text-align: center;
-	color:rgb(101,9,9);	
-}
-
-div.leftMenu2{
-	background-color:rgb(255,255,255);
-	cursor:pointer;
-	text-align: center;
-	color:rgb(101,9,9);	
-}
-
-
-div.leftMenu:hover{
-	background-color:rgb(101,9,9);
-	color:rgb(255,255,255);
-}
-
-div.leftMenu2:hover{
-	background-color:rgb(101,9,9);
-	color:rgb(255,255,255);	
-}
-
-svg{
-	cursor:default;
-}
-
-#lista{
-	background: -webkit-linear-gradient(left top,rgb(211,241,211),rgb(111,181,181)); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(bottom right,rgb(211,241,211), rgb(111,181,181)); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(bottom right,rgb(211,241,211), rgb(111,181,181)); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(to bottom right,rgb(211,241,211), rgb(111,181,181)); /* Standard syntax */
-	opacity:0.8;
-}
-
-#box2	{
-	background: -webkit-linear-gradient(left top,rgb(211,211,241),rgb(111,181,181)); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(bottom right,rgb(211,211,241), rgb(111,181,181)); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(bottom right,rgb(211,211,241), rgb(111,181,181)); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(to bottom right,rgb(211,211,241), rgb(111,181,181)); /* Standard syntax */
-	opacity:0.9;
-}
-
-* {
-    font-family: "Times New Roman" , "FreeSerif", "Nimbus Roman No9 L";
-  }
-  
-body {
-	-webkit-user-select: none; /* Chrome/Safari */        
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+ */
-	-ms-user-select: none;
-	user-select: none;
-    max-width: 100%;
-	height:100vh;
-    overflow-x: hidden;
-	overflow-y: hidden;
-
-}
-
-html{
-	-webkit-user-select: none; /* Chrome/Safari */        
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+ */
-	-ms-user-select: none;
-	user-select: none;
-    max-width: 100%;
-    overflow-x: hidden;
-	overflow-y: hidden;
-}
-
-
-</style>
-
 </body>
+
 </html>

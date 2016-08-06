@@ -1,0 +1,209 @@
+html {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+body {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  max-width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: "Times New Roman", "FreeSerif", "Nimbus Roman No9 L";
+}
+
+a {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: pointer;
+}
+
+a:link {
+  color: green;
+}
+
+a:visited {
+  color: green;
+}
+
+a:hover {
+  color: rgb(9, 53, 201);
+}
+
+a:active {
+  color: yellow;
+}
+
+a.tab {
+  text-decoration: underline;
+  color: white;
+}
+
+a.tab:hover {
+  color: rgb(230, 214, 74);
+}
+
+svg {
+  cursor: default;
+}
+
+che {
+  color: darkred;
+  text-decoration: underline;
+  text-transform: capitalize;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: pointer;
+}
+
+#descText {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: default;
+  color: darkblue;
+}
+
+msgText {
+  color: green;
+  text-decoration: underline;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: pointer;
+}
+
+msgAlert {
+  color: maroon;
+  text-decoration: underline;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: pointer;
+}
+
+ns {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: default;
+}
+
+#cHTab {
+  background: -webkit-linear-gradient(left top, rgb(211, 211, 241), rgb(181, 181, 181)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, rgb(211, 211, 241), rgb(181, 181, 181)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, rgb(211, 211, 241), rgb(181, 181, 181)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* Standard syntax */
+  border-color: rgb(0, 0, 180);
+}
+
+cHText {
+  color: rgb(0, 0, 175);
+  text-decoration: underline;
+}
+
+input.carcheck {
+  background-color: #d1d1d1;
+}
+
+#menu {
+  background: -webkit-linear-gradient(left top, rgb(241, 181, 181), rgb(181, 181, 181)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, rgb(241, 181, 181), rgb(181, 181, 181)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, rgb(241, 181, 181), rgb(181, 181, 181)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, rgb(241, 181, 181), rgb(255, 255, 255)); /* Standard syntax */
+  border-radius: 0px 15px 15px 0px;
+  border-style: solid;
+  border-color: rgb(160, 60, 60);
+  border-width: 4px;
+  opacity: 0.9;
+}
+
+#editMatTab {
+  background: -webkit-linear-gradient(left top, rgb(211, 211, 211), rgb(181, 181, 181)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, rgb(211, 211, 211), rgb(181, 181, 181)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, rgb(211, 211, 211), rgb(181, 181, 181)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, rgb(211, 211, 211), rgb(111, 111, 111)); /* Standard syntax */
+}
+
+#menuLabel {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: default;
+}
+
+#svgLista {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: default;
+}
+
+#svgBox2 {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: default;
+}
+
+div.leftMenu {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: pointer;
+  text-align: center;
+  color: rgb(101, 9, 9);
+}
+
+div.leftMenu2 {
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+  text-align: center;
+  color: rgb(101, 9, 9);
+}
+
+div.leftMenu:hover {
+  background-color: rgb(101, 9, 9);
+  color: rgb(255, 255, 255);
+}
+
+div.leftMenu2:hover {
+  background-color: rgb(101, 9, 9);
+  color: rgb(255, 255, 255);
+}
+
+#lista {
+  background: -webkit-linear-gradient(left top, rgb(211, 241, 211), rgb(111, 181, 181)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, rgb(211, 241, 211), rgb(111, 181, 181)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, rgb(211, 241, 211), rgb(111, 181, 181)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, rgb(211, 241, 211), rgb(111, 181, 181)); /* Standard syntax */
+  opacity: 0.8;
+}
+
+#box2 {
+  background: -webkit-linear-gradient(left top, rgb(211, 211, 241), rgb(111, 181, 181)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* Standard syntax */
+  opacity: 0.9;
+}
