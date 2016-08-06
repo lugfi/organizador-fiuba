@@ -300,14 +300,15 @@
 	function llenarLista(){
 		document.getElementById("listaInfo").innerHTML = "";
 		var totalCursos = 0;
+		var idCurso = 0;
 		for(var i=0;i<aMaterias.length;i++){
 			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre.substr(0,55) + "</che> <br> <a style=\"font-color:blue\" onclick=\"editarMateria(" + i + ");\">Editar</a> - <a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a> - <a style=\"font-color:blue\" onclick=\"forzarMateria(" + i + ");\">" + noIfTrue(aMaterias[i].forzar) + " Forzar</a> <br>";
 			if(aMaterias[i].expanded == 0) continue;
 			for(var j=0;j<aMaterias[i].cursos.length;j++){
 				totalCursos++;
-				var idCurso = i + (j+1);
+				//var idCurso = i + (j+1);
 				document.getElementById("listaInfo").innerHTML += "<input  " + checkedIfTrue(aMaterias[i].cursoSel == j+1) + " type=\"radio\" name=\"materia" + i + "\" id=\"rad" + idCurso + "\" onclick=\"clicked(" + i + "," + (j+1) + ",0);\"><label for=\"rad" + idCurso + "\">" + aMaterias[i].cursos[j].docentes + "</label><br>";
-				
+				idCurso++;
 			}
 		}	
 		
@@ -835,7 +836,7 @@
 					disponibilidad[k]--;
 					if(disponibilidad[k] == 0){
 						superposicion = 1;
-						break;
+						//break;
 					}
 				}
 			}
