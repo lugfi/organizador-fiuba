@@ -290,7 +290,8 @@
 			if(aMaterias[i].expanded == 0) continue;
 			for(var j=0;j<aMaterias[i].cursos.length;j++){
 				totalCursos++;
-				document.getElementById("listaInfo").innerHTML += "<input  " + checkedIfTrue(aMaterias[i].cursoSel == j+1) + " type=\"radio\" name=\"materia" + i + "\" id=\"rad" + i + (j+1) + "\" onclick=\"clicked(" + i + "," + (j+1) + ",0);\"><rad>" + aMaterias[i].cursos[j].docentes + "</rad><br>";
+				var idCurso = i + (j+1);
+				document.getElementById("listaInfo").innerHTML += "<input  " + checkedIfTrue(aMaterias[i].cursoSel == j+1) + " type=\"radio\" name=\"materia" + i + "\" id=\"rad" + idCurso + "\" onclick=\"clicked(" + i + "," + (j+1) + ",0);\"><label for=\"rad" + idCurso + "\">" + aMaterias[i].cursos[j].docentes + "</label><br>";
 				
 			}
 		}	

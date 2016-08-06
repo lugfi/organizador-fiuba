@@ -15,52 +15,67 @@
 
 <body>
 
-<svg style="z-index:-5;position:absolute;left:0px;top:0px;height:100vh;width:100vw;">
+  <svg style="z-index:-5;position:absolute;left:0px;top:0px;height:100vh;width:100vw;">
+    <rect width="100%" height="100%" fill="rgb(45,45,45)" style="stroke-width:2px;stroke-color:rgb(9,153,201)" />
+    <rect x="0%" y="0%" rx="32" ry="32" width="100%" height="100%" fill="rgb(250,250,250)" style="stroke-width:2px;stroke-color:rgb(9,153,201)" />
+    <text x="93%" y="2%" style="writing-mode:tb;glyph-orientation-vertical:0;fill:rgb(19,163,236);stroke:#000000;stroke-width:2px;font-size: 34px;letter-spacing:1;word-spacing:0.1;">Organizador FIUBA</text>
+  </svg>
 
-	<rect width="100%" height="100%" fill="rgb(45,45,45)" style="stroke-width:2px;stroke-color:rgb(9,153,201)" />
-	<rect x="0%" y="0%" rx="32" ry="32" width="100%" height="100%" fill="rgb(250,250,250)" style="stroke-width:2px;stroke-color:rgb(9,153,201)" />
-	<text x="93%" y="2%" style="writing-mode:tb;glyph-orientation-vertical:0;fill:rgb(19,163,236);stroke:#000000;stroke-width:2px;font-size: 34px;letter-spacing:1;word-spacing:0.1;">Organizador FIUBA</text>
-</svg>
+  <div id="msgBox" onclick="document.getElementById('msgBox').style.visibility = 'hidden';" style="position:absolute;left:40%;top:96%;visibility:hidden">
+    <div id="msg" style="margin:auto;font-size:20px" align="center"></div>
+  </div>
 
-<div id="msgBox" onclick="document.getElementById('msgBox').style.visibility = 'hidden';" style="position:absolute;left:40%;top:96%;visibility:hidden">
-<div id="msg" style="margin:auto;font-size:20px" align="center"></div>
-</div>
+  <div id="cellDesc" style="position:absolute;left:40%;top:92%;">
+    <font id="descText" style="font-size:13px;cursor:default"></font>
+  </div>
 
-<div id="cellDesc" style="position:absolute;left:40%;top:92%;">
-	<font id="descText" style="font-size:13px;cursor:default"></font>
-</div>
+  <div style="position:absolute;left:1%;top:93%;margin:auto;font-size:12px;">
+    <span style="color:darkred;">Actualizado para 2do Cuatrimestre 2016</span><br>
+    <span style="color:rgb(50,50,50);">En fase de prueba. Bugs, ideas y consultas a <i>fspadave@fi.uba.ar</i></span><br>
+    <a href="https://github.com/lugfi/organizador-fiuba">GitHub - Organizador Fiuba</a>
+  </div>
 
-<div style="position:absolute;left:1%;top:93%;margin:auto;font-size:12px;"><font style="color:darkred;">Actualizado para 2do Cuatrimestre 2016</font><br><font style="color:rgb(50,50,50);">En fase de prueba. Bugs, ideas y consultas a <i>fspadave@fi.uba.ar</i><br><a href="https://github.com/lugfi/organizador-fiuba">GitHub - Organizador Fiuba</a></font></div>
+  <input id="fileinp" type="file" style="visibility:hidden" onchange="openFile(event)">
 
-<input id="fileinp" type="file" style="visibility:hidden" onchange="openFile(event)"> </input>
+  <input id="fileDatos" type="file" style="visibility:hidden" onchange="openFileDatos(event)">
 
-<input id="fileDatos" type="file" style="visibility:hidden" onchange="openFileDatos(event)"> </input>
+  <div id="divComb" style="position:absolute;left:24%;top:93%;" align="center">
+    <input id="subIzquierda" type="submit" value="<" onclick="siguienteComb(0);" style="visibility:hidden">
+    <input type="submit" value="Calcular combinaciones" onclick="calcularCombinaciones();">
+    <input id="subDerecha" type="submit" value=">" onclick="siguienteComb(1);" style="visibility:hidden"><br>
+    <span style="color:rgb(50,50,50);"><i>Con al menos </i></span>
+    <input id="combMinMat" min="0" max="10" type="number" id="buscar" style="width:35px;" value="0">
+    <span style="color:rgb(50,50,50);"><i>materias</i></span><br>
+  </div>
 
+  <div id="box2" style="position:absolute;right:-488px;top:30px;width:500px;height:600px;border-radius: 15px 0px 15px 15px; border-style:solid;border-color:rgb(29,173,221);border-width: 2px;z-index:4">
+    <object style="position:absolute;left:-40px;top:20px;width:50px;height:300px;" type="image/svg+xml" data="images/BuscarMateria.svg"></object>
 
-<div id="divComb" style="position:absolute;left:24%;top:93%;" align="center">
-	<input id="subIzquierda" type="submit" value="<" onclick="siguienteComb(0);" style="visibility:hidden"></input> <input type="submit" value="Calcular combinaciones" onclick="calcularCombinaciones();"></input> <input id="subDerecha" type="submit" value=">" onclick="siguienteComb(1);" style="visibility:hidden"></input><br>
-	<font style="color:rgb(50,50,50);"><i>Con al menos </i></font> <input id="combMinMat" min="0" max="10" type="number"  id="buscar" style="width:35px;" value="0"></input> <font style="color:rgb(50,50,50);"><i>materias</i></font><br>
-</div>
+    <div style="width:500px;height:5px;" align="center">
+      <font style="font-size:32px;">Buscar materia</font><br>
+      <font id="textCuatri" style="font-size:16px;color:green;">(Primero tenes que cargar los datos.)</font><br>
+      Agregar cursos solo de:<br>
+      <input type="checkbox" id="car1"> <label for="car1">Civil</label> -
+      <input type="checkbox" id="car2"> <label for="car2">Industrial</label> -
+      <input type="checkbox" id="car3"> <label for="car3">Naval</label> -
+      <input type="checkbox" id="car4"> <label for="car4">Agrimensura</label> -
+      <input type="checkbox" id="car5"> <label for="car5">Mecánica</label> <br>
+      <input type="checkbox" id="car6"> <label for="car6">Electricista</label> -
+      <input type="checkbox" id="car7"> <label for="car7">Electrónica</label> -
+      <input type="checkbox" id="car8"> <label for="car8">Química</label> -
+      <input type="checkbox" id="car9"> <label for="car9">Sistemas</label> <br>
+      <input type="checkbox" id="car10"> <label for="car10">Informática</label> -
+      <input type="checkbox" id="car11"> <label for="car11">Alimentos</label> -
+      <input type="checkbox" id="car12"> <label for="car12">Ing. Agrimensura</label> - <a onclick="checkAll()">Todas</a><br>
+      <input id="buscar" style="width:400px;" oninput="buscarPrecargadas();" onclick="clickBuscar();" value="Ingresá la materia que queres buscar">
+      <div style="font-size:15px;padding:15px;" align="left" id="buscadas"></div>
+    </div>
+  </div>
 
-<div id="lista" style="position:absolute;right:-488px;top:30px;width:500px;height:600px;background-color:rgb(233,233,233);border-radius: 15px 0px 15px 15px; border-style:solid;border-color:rgb(63,159,80);border-width: 2px;z-index:4" >
-	<div id="listaInfo" style="padding:5px;overflow:auto;height:580px">
-
-	</div>
-	<object style="position:absolute;left:-40px;top:280px;width:50px;height:300px;" type="image/svg+xml" data="images/AgregarCurso.svg"></object>
-</div>
-
-<div id="box2" style="position:absolute;right:-488px;top:30px;width:500px;height:600px;border-radius: 15px 0px 15px 15px; border-style:solid;border-color:rgb(29,173,221);border-width: 2px;z-index:4">
-	<object style="position:absolute;left:-40px;top:20px;width:50px;height:300px;"  type="image/svg+xml" data="images/BuscarMateria.svg"></object>
-
-	<div style="width:500px;height:5px;" align=center><font style="font-size:32px;"><ns>Buscar materia</ns></font><br> <font id="textCuatri" style="font-size:16px;color:green;">(Primero tenes que cargar los datos.)</font><br>
-	<ns>Agregar cursos solo de:<br>
-	<input type="checkbox" id="car1"> Civil</input> - <input type="checkbox" id="car2"> Industrial </input> - <input type="checkbox" id="car3"> Naval </input> - <input type="checkbox" id="car4"> Agrimensura </input> - <input type="checkbox" id="car5"> Mecánica <br> </input><input type="checkbox" id="car6"><ns> Electricista </input> - <input type="checkbox" id="car7"> Electrónica </input> - <input type="checkbox" id="car8"> Química</ns></input> - <input type="checkbox" id="car9"> Sistemas </input> <br> <input type="checkbox" id="car10"> Informática </input> - <input type="checkbox" id="car11"> Alimentos </input> - <input type="checkbox" id="car12"> Ing. Agrimensura </input> - <a onclick="checkAll()">Todas</a><br></ns>
-	<input id="buscar" style="width:400px;" oninput="buscarPrecargadas();" onclick="clickBuscar();" value="Ingresá la materia que queres buscar"></input>
-	<div style="font-size:15px;padding:15px;" align="left" id="buscadas">
-	</div>
-	</div>
-</div>
-
+  <div id="lista" style="position:absolute;right:-488px;top:30px;width:500px;height:600px;background-color:rgb(233,233,233);border-radius: 15px 0px 15px 15px; border-style:solid;border-color:rgb(63,159,80);border-width: 2px;z-index:4" >
+    <div id="listaInfo" style="padding:5px;overflow:auto;height:580px"></div>
+    <object style="position:absolute;left:-40px;top:280px;width:50px;height:300px;" type="image/svg+xml" data="images/AgregarCurso.svg"></object>
+  </div>
 
 <svg class="ui-widget-content" id="backCalendar" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" style="position: absolute; left:5%; top:10px;background-image:url('logo.png');border-style:solid;border-color:rgb(9,153,201);border-width:1px;background-repeat: no-repeat;background-position: center;border-radius: 25px 0px 0px 0px;z-index:-3;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
 	<defs>
@@ -170,22 +185,23 @@
 <div align="center">
 <cHText  style="font-size:24px;">Horario extracurricular</cHText><br><br>
 
-<cHText>Descripción:</cHText> <input id="cHDesc" style="width:200px;" ></input><br><br>
+<cHText>Descripción:</cHText> <input id="cHDesc" style="width:200px;"><br><br>
 
 <div id="cHClasesDiv">
 </div>
-<input type="submit" value="Agregar bloque" onclick="cHAgregarBloque();"></input><br>
+<input type="submit" value="Agregar bloque" onclick="cHAgregarBloque();"><br>
 <div style="position:absolute;left:180px;top:400px;">
-<input type="submit" value="Cerrar" onclick="document.getElementById('cHTab').style.visibility = 'hidden';"></input>    <input type="submit" value="Aceptar" onclick="cHAceptar();"></input>
+<input type="submit" value="Cerrar" onclick="document.getElementById('cHTab').style.visibility = 'hidden';">
+<input type="submit" value="Aceptar" onclick="cHAceptar();">
 </div>
 </div>
 </div>
 
 
 <div id="editMatTab" style="position:absolute;left:100px;top:70px;width:700px;height:520px;background-color:rgb(70,70,70);border-radius: 15px 15px 15px 15px;border-style:solid;border-color:rgb(20,20,20);border-width: 2px;visibility:hidden;z-index:3;" align="center"><br>
-<textarea id="editMatText" style="resize:none;opacity:0.65;" rows="20" cols="95">
-</textarea><br>
-<input type="submit" value="Cerrar" onclick="document.getElementById('editMatTab').style.visibility = 'hidden';"></input>    <input type="submit" value="Aceptar" onclick="editMatAceptar();"></input><br>
+<textarea id="editMatText" style="resize:none;opacity:0.65;" rows="20" cols="95"></textarea><br>
+<input type="submit" value="Cerrar" onclick="document.getElementById('editMatTab').style.visibility = 'hidden';">
+<input type="submit" value="Aceptar" onclick="editMatAceptar();"><br>
 <font style="color:white;font-size:14px;"><i>*Modificar el formato lo menos posible.<br> Es importante no quitar saltos de línea, y respetar los espacios dentro de cada línea.</i></font>
 </div>
 
