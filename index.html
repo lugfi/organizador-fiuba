@@ -39,13 +39,16 @@
 
   <input id="fileDatos" type="file" style="visibility:hidden" onchange="openFileDatos(event)">
 
-  <div id="divComb" style="position:absolute;left:24%;top:93%;" align="center">
+  <div id="divComb" style="position:absolute;left:20%;top:93%;" align="center">
     <input id="subIzquierda" type="submit" value="<" onclick="siguienteComb(0);" style="visibility:hidden">
     <input type="submit" value="Calcular combinaciones" onclick="calcularCombinaciones();">
     <input id="subDerecha" type="submit" value=">" onclick="siguienteComb(1);" style="visibility:hidden"><br>
     <span style="color:rgb(50,50,50);"><i>Con al menos </i></span>
-    <input id="combMinMat" min="0" max="10" type="number" id="buscar" style="width:35px;" value="0">
+    <input id="combMinMat" min="0" max="10" type="number" style="width:35px;" value="0">
     <span style="color:rgb(50,50,50);"><i>materias</i></span><br>
+    <span style="color:rgb(50,50,50);"><i>Permitir hasta </i></span>
+    <input id="combMaxSup" min="0" max="50" step="0.5" type="number" style="width:35px;" value="0">
+    <span style="color:rgb(50,50,50);"><i>horas de superposición</i></span><br>
   </div>
 
   <div id="box2" style="position:absolute;right:-488px;top:30px;width:500px;height:600px;border-radius: 15px 0px 15px 15px; border-style:solid;border-color:rgb(29,173,221);border-width: 2px;z-index:4">
