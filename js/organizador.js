@@ -137,6 +137,21 @@
 		aMaterias.push(materia);
 		
 		llenarLista();
+		
+		var str = document.getElementById("buscadas").innerHTML;
+		
+		var pos = str.indexOf(aDatos[id][2] + " - " + aDatos[id][1] + "</a>");
+		var pos2 = str.indexOf("</a>",pos);
+		str = str.substring(0,pos2+4) + " - <font color=darkgreen><b>Ya agregada</b></font>" + str.substring(pos2+4);
+		
+		document.getElementById("buscadas").innerHTML = str;
+		
+		
+				/*html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a>";
+				for(var j=0;j < aMaterias.length;j++){
+					if(aDatos[i][2] == aMaterias[j].codigo) html += " - <font color=darkgreen><b>Ya agregada</b></font>";
+				}
+				html += "<br>";*/
 	}
 	
 	function materiaFromTextSinValidar(texto){
@@ -914,7 +929,11 @@
 					if(filtrar == 1) continue;
 				}			
 			
-				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a><br>";
+				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a>";
+				for(var j=0;j < aMaterias.length;j++){
+					if(aDatos[i][2] == aMaterias[j].codigo) html += " - <font color=darkgreen><b>Ya agregada</b></font>";
+				}
+				html += "<br>";
  				encontradas++;
 				if(encontradas > 21) break;
 			}
