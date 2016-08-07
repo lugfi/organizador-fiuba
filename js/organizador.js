@@ -41,6 +41,7 @@
 		this.cursoSel = 0;
 		this.expanded = 1;
 		this.forzar = 0;
+		this.cursoForzado = 0;
 		this.cursos = new Array();
 	}
 	
@@ -281,8 +282,17 @@
 	}
 	
 	function noIfTrue(b){
-		if(b==1){
+		//alert(b);
+		if(b){
 			return "No";
+		}else{
+			return "";
+		}
+	}
+	
+	function textIfTrue(b,text){
+		if(b){
+			return text;
 		}else{
 			return "";
 		}
@@ -296,27 +306,30 @@
 		}
 		llenarLista();
 	}
+	
+	function forzarCursoMateria(i,j){	
+		if(aMaterias[i].cursoForzado == j){
+			aMaterias[i].cursoForzado = 0;
+		}else{
+			aMaterias[i].cursoForzado = j;
+		}
+		llenarLista();
+	}
 		
 	function llenarLista(){
 		document.getElementById("listaInfo").innerHTML = "";
 		var totalCursos = 0;
 		var idCurso = 0;
 		for(var i=0;i<aMaterias.length;i++){
-			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre.substr(0,55) + "</che> <br> <a style=\"font-color:blue\" onclick=\"editarMateria(" + i + ");\">Editar</a> - <a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a> - <a style=\"font-color:blue\" onclick=\"forzarMateria(" + i + ");\">" + noIfTrue(aMaterias[i].forzar) + " Forzar</a> <br>";
+			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre.substr(0,55) + "</che> <br> <b><a style=\"font-color:blue\" onclick=\"editarMateria(" + i + ");\">Editar</a> - <a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a> - <a style=\"font-color:blue\" onclick=\"forzarMateria(" + i + ");\">" + textIfTrue(aMaterias[i].forzar,"<font color=red>") + noIfTrue(aMaterias[i].forzar) + " Forzar Materia" + textIfTrue(aMaterias[i].forzar,"</font>") + "</a></b> <br>";
 			if(aMaterias[i].expanded == 0) continue;
 			for(var j=0;j<aMaterias[i].cursos.length;j++){
 				totalCursos++;
-				document.getElementById("listaInfo").innerHTML += "<input  " + checkedIfTrue(aMaterias[i].cursoSel == j+1) + " type=\"radio\" name=\"materia" + i + "\" id=\"rad" + idCurso + "\" onclick=\"clicked(" + i + "," + (j+1) + ",0);\"><label for=\"rad" + idCurso + "\">" + aMaterias[i].cursos[j].docentes + "</label><br>";
+				document.getElementById("listaInfo").innerHTML += "<input  " + checkedIfTrue(aMaterias[i].cursoSel == j+1) + " type=\"radio\" name=\"materia" + i + "\" id=\"rad" + idCurso + "\" onclick=\"clicked(" + i + "," + (j+1) + ",0);\"><label for=\"rad" + idCurso + "\">" + aMaterias[i].cursos[j].docentes + "</label> - <a style=\"font-color:blue\" onclick=\"forzarCursoMateria(" + i + "," + (j+1) + ");\"><b>" + textIfTrue(aMaterias[i].cursoForzado == j+1,"<font color=red>") + noIfTrue(aMaterias[i].cursoForzado == j+1) + " Forzar Curso" + textIfTrue(aMaterias[i].cursoForzado == j+1,"</font>") + "</b></a><br>";
 				idCurso++;
 			}
 		}	
 		
-/* 		if(totalCursos*20 + aMaterias.length*30 > 600){
-			document.getElementById("lista").style.height = totalCursos*20 + aMaterias.length*30 + "px";
-		}else{
-			document.getElementById("lista").style.height = "600px";
-		} */
-	
 	}
 	
 	function editarMateria(i){
@@ -820,6 +833,7 @@
 			}
 			cursos[i] = cursos[i] % (aMaterias[i].cursos.length+1);
 			if(aMaterias[i].forzar == 1 && cursos[i] == 0)	return -1;
+			if(aMaterias[i].cursoForzado != 0 && aMaterias[i].cursoForzado != cursos[i])	return -1;
 			if(cursos[i]!=0 && aMaterias[i].codigo != "EXTC") minimoMaterias--;
 		}
 		
