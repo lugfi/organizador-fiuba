@@ -43,6 +43,8 @@
 		this.forzar = 0;
 		this.cursoForzado = new Array();
 		this.cursos = new Array();
+		this.color = color(nextColor);
+		nextColor++;
 	}
 	
 	function Curso(d){
@@ -290,6 +292,11 @@
 		}
 	}
 	
+	function changeMatColor(i){
+		aMaterias[i].color = document.getElementById("matColor" + i).value;
+		dibujarCalendario();
+	}
+	
 	function textIfTrue(b,text){
 		if(b){
 			return text;
@@ -322,7 +329,7 @@
 		var totalCursos = 0;
 		var idCurso = 0;
 		for(var i=0;i<aMaterias.length;i++){
-			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre.substr(0,55) + "</che> <br> <b><a style=\"font-color:blue\" onclick=\"editarMateria(" + i + ");\">Editar</a> - <a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a> - <a style=\"font-color:blue\" onclick=\"forzarMateria(" + i + ");\">" + textIfTrue(aMaterias[i].forzar,"<font color=red>") + noIfTrue(aMaterias[i].forzar) + " Forzar Materia" + textIfTrue(aMaterias[i].forzar,"</font>") + "</a></b> <br>";
+			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre.substr(0,55) + "</che> <input onchange=\"changeMatColor(" + i + ")\" value=\"" + aMaterias[i].color + "\" id=\"matColor" + i + "\" type=\"color\" /> <br> <b><a style=\"font-color:blue\" onclick=\"editarMateria(" + i + ");\">Editar</a> - <a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a> - <a style=\"font-color:blue\" onclick=\"forzarMateria(" + i + ");\">" + textIfTrue(aMaterias[i].forzar,"<font color=red>") + noIfTrue(aMaterias[i].forzar) + " Forzar Materia" + textIfTrue(aMaterias[i].forzar,"</font>") + "</a></b> <br>";
 			if(aMaterias[i].expanded == 0) continue;
 			for(var j=0;j<aMaterias[i].cursos.length;j++){
 				totalCursos++;
@@ -423,7 +430,7 @@
 					rect.setAttributeNS(null,"y",posY + "%");
 					rect.setAttributeNS(null,"width",15.625 + "%");
 					rect.setAttributeNS(null,"height",altura + "%");
-					rect.setAttributeNS(null,"fill","rgb(" + color(i) + ")");
+					rect.setAttributeNS(null,"fill", aMaterias[i].color);
 					rect.setAttributeNS(null,"stroke","none");
 					rect.setAttributeNS(null,"opacity",0.5);
 					document.getElementById("canvas").appendChild(rect);
@@ -1430,7 +1437,11 @@
 	
 	var editMateriaIndex = 0;
 	
-	var colors = ["255,0,0", "0,255,0", "0,0,255" , "235,232,79" , "85,221,223", "231,119,21", "186,6,189" , "132,204,9" , "106,74,11"];
+	//var colors = ["255,0,0", "0,255,0", "0,0,255" , "235,232,79" , "85,221,223", "231,119,21", "186,6,189" , "132,204,9" , "106,74,11"];
+	
+	var colors = ["#FF0000", "#00FF00", "#0000FF" , "#FFFF00" , "#00FFFF", "#FF00FF", "#FFFFFF" , "#000000"];
+	
+	var nextColor = 0;
 	
 	var cuatriActual = "2Q2016";
 	
