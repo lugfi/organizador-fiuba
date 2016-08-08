@@ -25,31 +25,23 @@
 
 <body>
 
-  <svg style="z-index:-5;position:absolute;left:0px;top:0px;height:100vh;width:100vw;">
+  <input id="fileinp" type="file" style="visibility:hidden" onchange="openFile(event)">
+
+  <input id="fileDatos" type="file" style="visibility:hidden" onchange="openFileDatos(event)">
+
+  <svg id="site-background">
     <rect width="100%" height="100%" fill="rgb(45,45,45)" style="stroke-width:2px;stroke-color:rgb(9,153,201)" />
     <rect x="0%" y="0%" rx="32" ry="32" width="100%" height="100%" fill="rgb(250,250,250)" style="stroke-width:2px;stroke-color:rgb(9,153,201)" />
     <text x="93%" y="2%" style="writing-mode:tb;glyph-orientation-vertical:0;fill:rgb(19,163,236);stroke:#000000;stroke-width:2px;font-size: 34px;letter-spacing:1;word-spacing:0.1;">Organizador FIUBA</text>
   </svg>
 
-  <div id="msgBox" onclick="document.getElementById('msgBox').style.visibility = 'hidden';" style="position:absolute;left:40%;top:96%;visibility:hidden">
-    <div id="msg" style="margin:auto;font-size:20px" align="center"></div>
-  </div>
-
-  <div id="cellDesc" style="position:absolute;left:40%;top:92%;">
-    <font id="descText" style="font-size:13px;cursor:default"></font>
-  </div>
-
-  <div style="position:absolute;left:1%;top:93%;margin:auto;font-size:12px;">
+  <div id="app-info">
     <span style="color:darkred;">Actualizado para 2do Cuatrimestre 2016</span><br>
     <span style="color:rgb(50,50,50);">En fase de prueba. Bugs, ideas y consultas a <i>fspadave@fi.uba.ar</i></span><br>
     <a href="https://github.com/lugfi/organizador-fiuba">GitHub - Organizador Fiuba</a>
   </div>
 
-  <input id="fileinp" type="file" style="visibility:hidden" onchange="openFile(event)">
-
-  <input id="fileDatos" type="file" style="visibility:hidden" onchange="openFileDatos(event)">
-
-  <div id="divComb" style="position:absolute;left:20%;top:93%;" align="center">
+  <div id="divComb">
     <input id="subIzquierda" type="submit" value="<" onclick="siguienteComb(0);" style="visibility:hidden">
     <input type="submit" value="Calcular combinaciones" onclick="calcularCombinaciones();">
     <input id="subDerecha" type="submit" value=">" onclick="siguienteComb(1);" style="visibility:hidden"><br>
@@ -61,12 +53,20 @@
     <span style="color:rgb(50,50,50);"><i>horas de superposición</i></span><br>
   </div>
 
-  <div id="box2" style="position:absolute;right:-488px;top:30px;width:500px;height:600px;border-radius: 15px 0px 15px 15px; border-style:solid;border-color:rgb(29,173,221);border-width: 2px;z-index:4">
-    <object style="position:absolute;left:-40px;top:20px;width:50px;height:300px;" type="image/svg+xml" data="images/BuscarMateria.svg"></object>
+  <div id="msgBox" onclick="document.getElementById('msgBox').style.visibility = 'hidden';">
+    <div id="msg"></div>
+  </div>
 
-    <div style="width:500px;height:5px;" align="center">
-      <font style="font-size:32px;">Buscar materia</font><br>
-      <font id="textCuatri" style="font-size:16px;color:green;">(Primero tenes que cargar los datos.)</font><br>
+  <div id="cellDesc">
+    <span id="descText"></span>
+  </div>
+
+  <div id="box2">
+    <object class="tab" type="image/svg+xml" data="images/BuscarMateria.svg"></object>
+
+    <div style="width:500px;" align="center">
+      <span style="font-size:32px;">Buscar materia</span><br>
+      <span id="textCuatri" style="font-size:16px; color:green;">(Primero tenes que cargar los datos.)</span><br>
       Agregar cursos solo de:<br>
       <input type="checkbox" id="car1"> <label for="car1">Civil</label> -
       <input type="checkbox" id="car2"> <label for="car2">Industrial</label> -
@@ -79,18 +79,19 @@
       <input type="checkbox" id="car9"> <label for="car9">Sistemas</label> <br>
       <input type="checkbox" id="car10"> <label for="car10">Informática</label> -
       <input type="checkbox" id="car11"> <label for="car11">Alimentos</label> -
-      <input type="checkbox" id="car12"> <label for="car12">Ing. Agrimensura</label> - <a onclick="checkAll()">Todas</a><br>
+      <input type="checkbox" id="car12"> <label for="car12">Ing. Agrimensura</label> -
+      <a onclick="checkAll()">Todas</a><br>
       <input id="buscar" style="width:400px;" oninput="buscarPrecargadas();" onclick="clickBuscar();" value="Ingresá la materia que queres buscar">
-      <div style="font-size:15px;padding:15px;" align="left" id="buscadas"></div>
+      <div id="buscadas"></div>
     </div>
   </div>
 
-  <div id="lista" style="position:absolute;right:-488px;top:30px;width:500px;height:600px;background-color:rgb(233,233,233);border-radius: 15px 0px 15px 15px; border-style:solid;border-color:rgb(63,159,80);border-width: 2px;z-index:4" >
-    <div id="listaInfo" style="padding:5px;overflow:auto;height:580px"></div>
-    <object style="position:absolute;left:-40px;top:280px;width:50px;height:300px;" type="image/svg+xml" data="images/AgregarCurso.svg"></object>
+  <div id="lista">
+    <object class="tab" type="image/svg+xml" data="images/AgregarCurso.svg"></object>
+    <div id="listaInfo"></div>
   </div>
 
-<svg class="ui-widget-content" id="backCalendar" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" style="position: absolute; left:5%; top:10px;background-image:url('logo.png');border-style:solid;border-color:rgb(9,153,201);border-width:1px;background-repeat: no-repeat;background-position: center;border-radius: 25px 0px 0px 0px;z-index:-3;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<svg class="ui-widget-content" id="backCalendar" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" style="position: absolute; left:5%; top:10px;border-style:solid;border-color:rgb(9,153,201);border-width:1px;background-repeat: no-repeat;background-position: center;border-radius: 25px 0px 0px 0px;z-index:-3;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
 	<defs>
 		<linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
 			<stop offset="0%" style="stop-color:rgb(230,230,230);stop-opacity:1" />
@@ -109,7 +110,7 @@
 	<line x1="68.8%" y1="0" x2="68.8%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:2;" opacity="0.1"/>
 	<text text-anchor="middle" x="76.5%" y="5.2%" style="font-size:30px;fill:rgb(9,153,201);">Viernes</text>
 	<line x1="84.3%" y1="0" x2="84.3%" y2="100%" style="stroke:rgb(0,0,0);stroke-width:2;" opacity="0.1"/>
-	<text text-anchor="middle" x="92.1%" y="5.2%" style="font-size:30px;fill:rgb(9,153,201);">Sábado</text>  
+	<text text-anchor="middle" x="92.1%" y="5.2%" style="font-size:30px;fill:rgb(9,153,201);">Sábado</text>
 	<line x1="0" y1="6.2%" x2="100%" y2="6.2%" style="stroke:rgb(100,100,100);stroke-width:1" />
 	<text text-anchor="end" x="5%" y="49" style="fill:rgb(35,99,20)">7:00</text>
 	<line x1="0" y1="8.9%" x2="100%" y2="8.9%" style="stroke:rgb(100,100,100);stroke-width:1" />
@@ -180,72 +181,73 @@
 	<text text-anchor="end" x="5%" y="577" style="fill:rgb(35,99,20)">23:30</text>
 </svg>	
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" opacity="1" style="position: absolute; left:5%;top:10px;z-index:1" id="canvas">
-</svg>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" opacity="1" style="position: absolute; left:5%;top:10px;z-index:1" id="canvas"></svg>
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" opacity="1" style="position: absolute; left:5%;top:10px;z-index:2" id="topCanvas">
-</svg>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" opacity="1" style="position: absolute; left:5%;top:10px;z-index:2" id="topCanvas"></svg>
 
-<div id="resizeDiv" style="position:absolute;opacity:0.7;width:6px;height:90.4%;top:10px;left:90%;background-color:rgb(150,150,150);cursor:w-resize;z-index:3">
-</div>
+  <div id="resizeDiv" style="position:absolute;opacity:0.7;width:6px;height:90.4%;top:10px;left:90%;background-color:rgb(150,150,150);cursor:w-resize;z-index:3"></div>
 
-<div style="position: absolute; left:10px; top:10px">
-<p id="demo">
-</p>
-</div>
+  <div style="position: absolute; left:10px; top:10px">
+    <p id="demo"></p>
+  </div>
 
-<div id="cHTab" style="position:absolute;left:250px;top:100px;width:450px;height:450px;border-radius: 15px 15px 15px 15px;border-style:solid;border-width: 2px;visibility:hidden;z-index:3;">
-<div align="center">
-<cHText  style="font-size:24px;">Horario extracurricular</cHText><br><br>
+  <div id="cHTab" style="position:absolute;left:250px;top:100px;width:450px;height:450px;border-radius: 15px 15px 15px 15px;border-style:solid;border-width: 2px;visibility:hidden;z-index:3;">
+    <div align="center">
+      <cHText  style="font-size:24px;">Horario extracurricular</cHText><br><br>
+      <cHText>Descripción:</cHText> <input id="cHDesc" style="width:200px;"><br><br>
 
-<cHText>Descripción:</cHText> <input id="cHDesc" style="width:200px;"><br><br>
+      <div id="cHClasesDiv"></div>
+      <input type="submit" value="Agregar bloque" onclick="cHAgregarBloque();"><br>
+      <div style="position:absolute;left:180px;top:400px;">
+        <input type="submit" value="Cerrar" onclick="document.getElementById('cHTab').style.visibility = 'hidden';">
+        <input type="submit" value="Aceptar" onclick="cHAceptar();">
+      </div>
+    </div>
+  </div>
 
-<div id="cHClasesDiv">
-</div>
-<input type="submit" value="Agregar bloque" onclick="cHAgregarBloque();"><br>
-<div style="position:absolute;left:180px;top:400px;">
-<input type="submit" value="Cerrar" onclick="document.getElementById('cHTab').style.visibility = 'hidden';">
-<input type="submit" value="Aceptar" onclick="cHAceptar();">
-</div>
-</div>
-</div>
+  <div id="editMatTab" style="position:absolute;left:100px;top:70px;width:700px;height:520px;background-color:rgb(70,70,70);border-radius: 15px 15px 15px 15px;border-style:solid;border-color:rgb(20,20,20);border-width: 2px;visibility:hidden;z-index:3;" align="center"><br>
+    <textarea id="editMatText" style="resize:none;opacity:0.65;" rows="20" cols="95"></textarea><br>
+    <input type="submit" value="Cerrar" onclick="document.getElementById('editMatTab').style.visibility = 'hidden';">
+    <input type="submit" value="Aceptar" onclick="editMatAceptar();"><br>
+    <font style="color:white;font-size:14px;"><i>*Modificar el formato lo menos posible.<br> Es importante no quitar saltos de línea, y respetar los espacios dentro de cada línea.</i></font>
+  </div>
 
+  <div id="menu" style="position:absolute;top:60px;left:-122px;width:120px;height:400px;z-index:4" >
+    <object style="position:relative;top:-5px;left:110px;width:52px;height:318px;"  type="image/svg+xml" data="images/Opciones.svg"></object>
 
-<div id="editMatTab" style="position:absolute;left:100px;top:70px;width:700px;height:520px;background-color:rgb(70,70,70);border-radius: 15px 15px 15px 15px;border-style:solid;border-color:rgb(20,20,20);border-width: 2px;visibility:hidden;z-index:3;" align="center"><br>
-<textarea id="editMatText" style="resize:none;opacity:0.65;" rows="20" cols="95"></textarea><br>
-<input type="submit" value="Cerrar" onclick="document.getElementById('editMatTab').style.visibility = 'hidden';">
-<input type="submit" value="Aceptar" onclick="editMatAceptar();"><br>
-<font style="color:white;font-size:14px;"><i>*Modificar el formato lo menos posible.<br> Es importante no quitar saltos de línea, y respetar los espacios dentro de cada línea.</i></font>
-</div>
-
-
-
-<div id="menu" style="position:absolute;top:60px;left:-122px;width:120px;height:400px;z-index:4" >
-<object style="position:relative;top:-5px;left:110px;width:52px;height:318px;"  type="image/svg+xml" data="images/Opciones.svg"></object>
-	
-	<div id="but1" onclick="cHCrearHorario();" class="leftMenu"  style="position:absolute;top:50px;left:10px;width:110px;height:50px;">
-										<span style="position:absolute;top:50%;left:0px;margin:-20px 2px">Horario Extracurricular</span></div>
-	<div id="but2" onclick="descargarHorarios();" class="leftMenu"  style="position:absolute;top:100px;left:10px;width:110px;height:50px;">
-										<span style="position:absolute;top:50%;left:0px;margin:-20px 2px">Descargar Horario</span></div>
-	<div id="but3" onclick="guardarEstado();" class="leftMenu"  style="position:absolute;top:150px;left:10px;width:110px;height:50px;">
-										<span style="position:absolute;top:50%;left:0px;margin:-10px 3px">Guardar Estado</span></div>
-	<div id="but4" onclick="document.getElementById('fileinp').click();" class="leftMenu"  style="position:absolute;top:200px;left:10px;width:110px;height:50px;">
-										<span style="position:absolute;top:50%;left:0px;margin:-10px 7px">Cargar Estado</span></div>
-	<div id="but5" onclick="" class="leftMenu"  style="position:absolute;top:250px;left:10px;width:110px;height:100px;">
-										<span style="position:absolute;top:30%;left:0px;margin:-10px 7px">Usar datos de cuatrimestres pasados</span></div>
-			<div id="but5_sub" style="visibility:hidden;position:absolute;top:250px;left:120px;width:110px;height:100px;">
-				<div id="but5_5"  class="leftMenu2"  style="position:absolute;top:50px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-										<span style="position:absolute;top:30%;left:0px;margin:-10px 7px">2do Cuatrimestre 2016</span></div>
-				<div id="but5_4"  class="leftMenu2"  style="position:absolute;top:90px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-										<span style="position:absolute;top:30%;left:0px;margin:-10px 7px">1er Cuatrimestre 2016</span></div>
-				<div id="but5_3"  class="leftMenu2"  style="position:absolute;top:130px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-										<span style="position:absolute;top:30%;left:0px;margin:-10px 7px">2do Cuatrimestre 2015</span></div> 
-				<div id="but5_1"  class="leftMenu2"  style="position:absolute;top:170px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-										<span style="position:absolute;top:30%;left:0px;margin:-10px 7px">1er Cuatrimestre 2015</span></div> 
-				<div id="but5_2"  class="leftMenu2"  style="position:absolute;top:210px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-										<span style="position:absolute;top:30%;left:0px;margin:-10px 7px">2do Cuatrimestre 2014</span></div>
-			</div>
-</div>
+    <div id="but1" onclick="cHCrearHorario();" class="leftMenu"  style="position:absolute;top:50px;left:10px;width:110px;height:50px;">
+      <span style="position:absolute;top:50%;left:0px;margin:-20px 2px">Horario Extracurricular</span>
+    </div>
+    <div id="but2" onclick="descargarHorarios();" class="leftMenu"  style="position:absolute;top:100px;left:10px;width:110px;height:50px;">
+      <span style="position:absolute;top:50%;left:0px;margin:-20px 2px">Descargar Horario</span>
+    </div>
+    <div id="but3" onclick="guardarEstado();" class="leftMenu"  style="position:absolute;top:150px;left:10px;width:110px;height:50px;">
+      <span style="position:absolute;top:50%;left:0px;margin:-10px 3px">Guardar Estado</span>
+    </div>
+    <div id="but4" onclick="document.getElementById('fileinp').click();" class="leftMenu"  style="position:absolute;top:200px;left:10px;width:110px;height:50px;">
+      <span style="position:absolute;top:50%;left:0px;margin:-10px 7px">Cargar Estado</span>
+    </div>
+    <div id="but5" onclick="" class="leftMenu"  style="position:absolute;top:250px;left:10px;width:110px;height:100px;">
+      <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">Usar datos de cuatrimestres pasados</span>
+    </div>
+    <div id="but5_sub" style="visibility:hidden;position:absolute;top:250px;left:120px;width:110px;height:100px;">
+      <div id="but5_5"  class="leftMenu2"  style="position:absolute;top:50px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
+        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">2do Cuatrimestre 2016</span>
+      </div>
+      <div id="but5_4"  class="leftMenu2"  style="position:absolute;top:90px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
+        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">1er Cuatrimestre 2016</span>
+      </div>
+      <div id="but5_3"  class="leftMenu2"  style="position:absolute;top:130px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
+        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">2do Cuatrimestre 2015</span>
+      </div>
+      <div id="but5_1"  class="leftMenu2"  style="position:absolute;top:170px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
+        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">1er Cuatrimestre 2015</span>
+      </div>
+      <div id="but5_2"  class="leftMenu2"  style="position:absolute;top:210px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
+        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">2do Cuatrimestre 2014</span>
+      </div>
+    </div>
+  </div>
 
 </body>
 

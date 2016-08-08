@@ -1,3 +1,7 @@
+/******************
+ * General styles *
+ ******************/
+
 html {
   -webkit-user-select: none; /* Chrome/Safari */
   -moz-user-select: none; /* Firefox */
@@ -44,17 +48,124 @@ a:active {
   color: yellow;
 }
 
-a.tab {
-  text-decoration: underline;
-  color: white;
+/*****************
+ * Site elements *
+ *****************/
+
+#site-background {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -5;
 }
 
-a.tab:hover {
-  color: rgb(230, 214, 74);
+#app-info {
+  position: absolute;
+  top: 93%;
+  left: 1%;
+  margin: auto;
+  font-size: 12px;
 }
 
-svg {
+#divComb {
+  position: absolute;
+  top: 93%;
+  left: 20%;
+  text-align: center;
+}
+
+#msgBox {
+  position: absolute;
+  left: 40%;
+  top: 96%;
+  visibility: hidden;
+}
+
+#msgBox #msg {
+  margin: auto;
+  font-size: 20px;
+  text-align: center;
+}
+
+#cellDesc {
+  position: absolute;
+  left: 40%;
+  top: 92%;
+}
+
+#cellDesc #descText {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  font-size: 13px;
+  color: darkblue;
   cursor: default;
+}
+
+#box2 {
+  background: -webkit-linear-gradient(left top, rgb(211, 211, 241), rgb(111, 181, 181)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* Standard syntax */
+  opacity: 0.9;
+  width: 500px;
+  height: 600px;
+  border-style: solid;
+  border-radius: 15px 0px 15px 15px;
+  border-color: rgb(29,173,221);
+  border-width: 2px;
+  position: absolute;
+  top: 30px;
+  right: -488px;
+  z-index:4;
+}
+
+#box2 .tab {
+  width: 50px;
+  height: 300px;
+  position: absolute;
+  top: 20px;
+  left: -40px;
+}
+
+#box2 #buscadas {
+  padding: 15px;
+  font-size: 15px;
+}
+
+#lista {
+  background: -webkit-linear-gradient(left top, rgb(211, 241, 211), rgb(111, 181, 181)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, rgb(211, 241, 211), rgb(111, 181, 181)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, rgb(211, 241, 211), rgb(111, 181, 181)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, rgb(211, 241, 211), rgb(111, 181, 181)); /* Standard syntax */
+  opacity: 0.8;
+  width: 500px;
+  height: 600px;
+  position: absolute;
+  top: 30px;
+  right: -488px;
+  border-style: solid;
+  border-radius: 15px 0px 15px 15px;
+  border-color: rgb(63,159,80);
+  border-width: 2px;
+  z-index:4;
+}
+
+#lista .tab {
+  width: 50px;
+  height:300px;
+  position: absolute;
+  top: 280px;
+  left: -40px;
+}
+
+#lista #listaInfo {
+  padding: 5px;
+  height:580px;
+  overflow: auto;
 }
 
 che {
@@ -66,15 +177,6 @@ che {
   -ms-user-select: none; /* IE10+ */
   user-select: none;
   cursor: pointer;
-}
-
-#descText {
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-  user-select: none;
-  cursor: default;
-  color: darkblue;
 }
 
 msgText {
@@ -182,20 +284,4 @@ div.leftMenu:hover {
 div.leftMenu2:hover {
   background-color: rgb(101, 9, 9);
   color: rgb(255, 255, 255);
-}
-
-#lista {
-  background: -webkit-linear-gradient(left top, rgb(211, 241, 211), rgb(111, 181, 181)); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, rgb(211, 241, 211), rgb(111, 181, 181)); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, rgb(211, 241, 211), rgb(111, 181, 181)); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, rgb(211, 241, 211), rgb(111, 181, 181)); /* Standard syntax */
-  opacity: 0.8;
-}
-
-#box2 {
-  background: -webkit-linear-gradient(left top, rgb(211, 211, 241), rgb(111, 181, 181)); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* Standard syntax */
-  opacity: 0.9;
 }
