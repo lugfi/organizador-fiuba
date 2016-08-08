@@ -41,7 +41,7 @@
 		this.cursoSel = 0;
 		this.expanded = 1;
 		this.forzar = 0;
-		this.cursoForzado = 0;
+		this.cursoForzado = new Array();
 		this.cursos = new Array();
 	}
 	
@@ -307,11 +307,12 @@
 		llenarLista();
 	}
 	
-	function forzarCursoMateria(i,j){	
-		if(aMaterias[i].cursoForzado == j){
-			aMaterias[i].cursoForzado = 0;
+	function forzarCursoMateria(i,j){
+		var posJ = aMaterias[i].cursoForzado.indexOf(j);
+		if(posJ != -1){
+			aMaterias[i].cursoForzado.splice(posJ,1);
 		}else{
-			aMaterias[i].cursoForzado = j;
+			aMaterias[i].cursoForzado.push(j);
 		}
 		llenarLista();
 	}
@@ -325,7 +326,7 @@
 			if(aMaterias[i].expanded == 0) continue;
 			for(var j=0;j<aMaterias[i].cursos.length;j++){
 				totalCursos++;
-				document.getElementById("listaInfo").innerHTML += "<input  " + checkedIfTrue(aMaterias[i].cursoSel == j+1) + " type=\"radio\" name=\"materia" + i + "\" id=\"rad" + idCurso + "\" onclick=\"clicked(" + i + "," + (j+1) + ",0);\"><label for=\"rad" + idCurso + "\">" + aMaterias[i].cursos[j].docentes + "</label> - <a style=\"font-color:blue\" onclick=\"forzarCursoMateria(" + i + "," + (j+1) + ");\"><b>" + textIfTrue(aMaterias[i].cursoForzado == j+1,"<font color=red>") + noIfTrue(aMaterias[i].cursoForzado == j+1) + " Forzar Curso" + textIfTrue(aMaterias[i].cursoForzado == j+1,"</font>") + "</b></a><br>";
+				document.getElementById("listaInfo").innerHTML += "<input  " + checkedIfTrue(aMaterias[i].cursoSel == j+1) + " type=\"radio\" name=\"materia" + i + "\" id=\"rad" + idCurso + "\" onclick=\"clicked(" + i + "," + (j+1) + ",0);\"><label for=\"rad" + idCurso + "\">" + aMaterias[i].cursos[j].docentes + "</label> - <a style=\"font-color:blue\" onclick=\"forzarCursoMateria(" + i + "," + (j+1) + ");\"><b>" + textIfTrue(aMaterias[i].cursoForzado.indexOf(j+1) != -1,"<font color=red>") + noIfTrue(aMaterias[i].cursoForzado.indexOf(j+1) != -1) + " Forzar Curso" + textIfTrue(aMaterias[i].cursoForzado.indexOf(j+1) != -1,"</font>") + "</b></a><br>";
 				idCurso++;
 			}
 		}	
@@ -833,7 +834,7 @@
 			}
 			cursos[i] = cursos[i] % (aMaterias[i].cursos.length+1);
 			if(aMaterias[i].forzar == 1 && cursos[i] == 0)	return -1;
-			if(aMaterias[i].cursoForzado != 0 && aMaterias[i].cursoForzado != cursos[i])	return -1;
+			if(aMaterias[i].cursoForzado.length != 0 && aMaterias[i].cursoForzado.indexOf(cursos[i]) == -1 && cursos[i] != 0)	return -1;
 			if(cursos[i]!=0 && aMaterias[i].codigo != "EXTC") minimoMaterias--;
 		}
 		
