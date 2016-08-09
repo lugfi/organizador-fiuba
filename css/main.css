@@ -71,15 +71,15 @@ a:active {
 
 #divComb {
   position: absolute;
-  top: 93%;
-  left: 20%;
+  top: 91%;
+  left: 21%;
   text-align: center;
 }
 
 #msgBox {
   position: absolute;
   left: 40%;
-  top: 96%;
+  top: 93%;
   visibility: hidden;
 }
 
