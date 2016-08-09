@@ -154,6 +154,7 @@ msgAlert {
 #box2 #buscadas {
   padding: 15px;
   font-size: 15px;
+  text-align: left;
 }
 
 #lista {
@@ -361,59 +362,35 @@ che {
 }
 
 #menu #but5_sub {
-  width: 110px;
-  height: 100px;
   position: absolute;
-  top: 250px;
+  top: 300px;
   left: 120px;
   visibility: hidden;
 }
 
-#menu #but5_sub .leftMenu2 {
+ul#but5_sub {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul#but5_sub li {
+  width: 140px;
+  height: 40px;
+  padding: 0px 5px;
   background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
   cursor: pointer;
   text-align: center;
   color: rgb(101, 9, 9);
 }
 
-#menu #but5_sub .leftMenu2:hover {
+ul#but5_sub li:last-child {
+  border-width: 1px 1px 1px 1px;
+}
+
+ul#but5_sub li:hover {
   background-color: rgb(101, 9, 9);
   color: rgb(255, 255, 255);
-}
-
-#menu #but5_sub .leftMenu2 {
-  width: 150px;
-  height: 40px;
-  border-style: solid;
-  border-width:1px;
-  position: absolute;
-  top: 50px;
-  left: 0px;
-}
-
-#menu #but5_sub .leftMenu2 span {
-  position: absolute;
-  top: 30%;
-  left: 0px;
-  margin: -10px 7px;
-}
-
-#menu #but5_sub .leftMenu2#but5_5 {
-  top: 50px;
-}
-
-#menu #but5_sub .leftMenu2#but5_4 {
-  top: 90px;
-}
-
-#menu #but5_sub .leftMenu2#but5_3 {
-  top: 130px;
-}
-
-#menu #but5_sub .leftMenu2#but5_1 {
-  top: 170px;
-}
-
-#menu #but5_sub .leftMenu2#but5_2 {
-  top: 210px;
 }
