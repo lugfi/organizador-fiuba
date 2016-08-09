@@ -214,32 +214,24 @@
     <span style="color:white;font-size:14px;"><i>*Modificar el formato lo menos posible.<br> Es importante no quitar saltos de línea, y respetar los espacios dentro de cada línea.</i></span>
   </div>
 
-  <div id="menu">
+  <ul id="menu">
     <object class="tab" type="image/svg+xml" data="images/Opciones.svg"></object>
 
-    <div class="leftMenu" id="but1" onclick="cHCrearHorario();">
-      <span>Horario Extracurricular</span>
-    </div>
-    <div class="leftMenu" id="but2" onclick="descargarHorarios();">
-      <span>Descargar Horario</span>
-    </div>
-    <div class="leftMenu" id="but3" onclick="guardarEstado();">
-      <span>Guardar Estado</span>
-    </div>
-    <div class="leftMenu" id="but4" onclick="document.getElementById('fileinp').click();">
-      <span>Cargar Estado</span>
-    </div>
-    <div class="leftMenu" id="but5">
-      <span>Usar datos de cuatrimestres pasados</span>
-    </div>
-    <ul id="but5_sub">
-      <li id="but5_5">2do Cuatrimestre 2016</li>
-      <li id="but5_4">1er Cuatrimestre 2016</li>
-      <li id="but5_3">2do Cuatrimestre 2015</li>
-      <li id="but5_1">1er Cuatrimestre 2015</li>
-      <li id="but5_2">2do Cuatrimestre 2014</li>
-    </ul>
-  </div>
+    <li id="but1" onclick="cHCrearHorario();">Horario Extracurricular</li>
+    <li id="but2" onclick="descargarHorarios();">Descargar Horario</li>
+    <li id="but3" onclick="guardarEstado();">Guardar Estado</li>
+    <li id="but4" onclick="document.getElementById('fileinp').click();">Cargar Estado</li>
+    <li id="but5">
+      Usar datos de cuatrimestres pasados
+      <ul id="but5_sub">
+        <li id="but5_5">2do Cuatrimestre 2016</li>
+        <li id="but5_4">1er Cuatrimestre 2016</li>
+        <li id="but5_3">2do Cuatrimestre 2015</li>
+        <li id="but5_1">1er Cuatrimestre 2015</li>
+        <li id="but5_2">2do Cuatrimestre 2014</li>
+      </ul>
+    </li>
+  </ul>
 
 </body>
 
