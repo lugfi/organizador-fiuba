@@ -89,6 +89,26 @@ a:active {
   text-align: center;
 }
 
+msgText {
+  color: green;
+  text-decoration: underline;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: pointer;
+}
+
+msgAlert {
+  color: maroon;
+  text-decoration: underline;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: pointer;
+}
+
 #cellDesc {
   position: absolute;
   left: 40%;
@@ -179,53 +199,25 @@ che {
   cursor: pointer;
 }
 
-msgText {
-  color: green;
-  text-decoration: underline;
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-  user-select: none;
-  cursor: pointer;
-}
-
-msgAlert {
-  color: maroon;
-  text-decoration: underline;
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-  user-select: none;
-  cursor: pointer;
-}
-
 #cHTab {
   background: -webkit-linear-gradient(left top, rgb(211, 211, 241), rgb(181, 181, 181)); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(bottom right, rgb(211, 211, 241), rgb(181, 181, 181)); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, rgb(211, 211, 241), rgb(181, 181, 181)); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, rgb(211, 211, 241), rgb(111, 181, 181)); /* Standard syntax */
   border-color: rgb(0, 0, 180);
-}
-
-cHText {
-  color: rgb(0, 0, 175);
-  text-decoration: underline;
-}
-
-input.carcheck {
-  background-color: #d1d1d1;
-}
-
-#menu {
-  background: -webkit-linear-gradient(left top, rgb(241, 181, 181), rgb(181, 181, 181)); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, rgb(241, 181, 181), rgb(181, 181, 181)); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, rgb(241, 181, 181), rgb(181, 181, 181)); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, rgb(241, 181, 181), rgb(255, 255, 255)); /* Standard syntax */
-  border-radius: 0px 15px 15px 0px;
+  width: 450px;
+  height: 450px;
+  position: absolute;
+  top: 100px;
+  left: 250px;
   border-style: solid;
-  border-color: rgb(160, 60, 60);
-  border-width: 4px;
-  opacity: 0.9;
+  border-radius: 15px 15px 15px 15px;
+  border-width: 2px;
+  text-align: center;
+  text-decoration: underline;
+  color: rgb(0, 0, 175);
+  visibility: hidden;
+  z-index: 3;
 }
 
 #editMatTab {
@@ -233,33 +225,52 @@ input.carcheck {
   background: -o-linear-gradient(bottom right, rgb(211, 211, 211), rgb(181, 181, 181)); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, rgb(211, 211, 211), rgb(181, 181, 181)); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, rgb(211, 211, 211), rgb(111, 111, 111)); /* Standard syntax */
+  width: 700px;
+  height: 520px;
+  position: absolute;
+  top: 70px;
+  left: 100px;
+  border-style: solid;
+  border-radius: 15px 15px 15px 15px;
+  border-color: rgb(20,20,20);
+  border-width: 2px;
+  text-align: center;
+  visibility: hidden;
+  z-index: 3;
 }
 
-#menuLabel {
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-  user-select: none;
-  cursor: default;
+#editMatTab textarea {
+  opacity: 0.65;
+  resize: none;
 }
 
-#svgLista {
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-  user-select: none;
-  cursor: default;
+#menu {
+  background: -webkit-linear-gradient(left top, rgb(241, 181, 181), rgb(181, 181, 181)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, rgb(241, 181, 181), rgb(181, 181, 181)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, rgb(241, 181, 181), rgb(181, 181, 181)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, rgb(241, 181, 181), rgb(255, 255, 255)); /* Standard syntax */
+  width: 120px;
+  height: 400px;
+  border-style: solid;
+  border-radius: 0px 15px 15px 0px;
+  border-color: rgb(160, 60, 60);
+  border-width: 4px;
+  position: absolute;
+  top: 60px;
+  left: -122px;
+  opacity: 0.9;
+  z-index: 4;
 }
 
-#svgBox2 {
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-  user-select: none;
-  cursor: default;
+#menu .tab {
+  width: 52px;
+  height: 318px;
+  position: relative;
+  top: -5px;
+  left: 110px;
 }
 
-div.leftMenu {
+#menu .leftMenu {
   -webkit-user-select: none; /* Chrome/Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
@@ -269,19 +280,140 @@ div.leftMenu {
   color: rgb(101, 9, 9);
 }
 
-div.leftMenu2 {
+#menu .leftMenu:hover {
+  background-color: rgb(101, 9, 9);
+  color: rgb(255, 255, 255);
+}
+
+#menu .leftMenu#but1 {
+  width: 110px;
+  height:50px;
+  position: absolute;
+  top: 50px;
+  left: 10px;
+}
+
+#menu .leftMenu#but1 span {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  margin: -20px 2px;
+}
+
+#menu .leftMenu#but2 {
+  width: 110px;
+  height: 50px;
+  position: absolute;
+  top: 100px;
+  left: 10px;
+}
+
+#menu .leftMenu#but2 span {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  margin: -20px 2px;
+}
+
+#menu .leftMenu#but3 {
+  width: 110px;
+  height: 50px;
+  position: absolute;
+  top: 150px;
+  left: 10px;
+}
+
+#menu .leftMenu#but3 span {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  margin: -10px 3px;
+}
+
+#menu .leftMenu#but4 {
+  width: 110px;
+  height: 50px;
+  position: absolute;
+  top: 200px;
+  left: 10px;
+}
+
+#menu .leftMenu#but4 span {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  margin: -10px 7px;
+}
+
+#menu .leftMenu#but5 {
+  width: 110px;
+  height: 100px;
+  position: absolute;
+  top: 250px;
+  left: 10px;
+}
+
+#menu .leftMenu#but5 span {
+  position: absolute;
+  top: 30%;
+  left: 0px;
+  margin: -10px 7px;
+}
+
+#menu #but5_sub {
+  width: 110px;
+  height: 100px;
+  position: absolute;
+  top: 250px;
+  left: 120px;
+  visibility: hidden;
+}
+
+#menu #but5_sub .leftMenu2 {
   background-color: rgb(255, 255, 255);
   cursor: pointer;
   text-align: center;
   color: rgb(101, 9, 9);
 }
 
-div.leftMenu:hover {
+#menu #but5_sub .leftMenu2:hover {
   background-color: rgb(101, 9, 9);
   color: rgb(255, 255, 255);
 }
 
-div.leftMenu2:hover {
-  background-color: rgb(101, 9, 9);
-  color: rgb(255, 255, 255);
+#menu #but5_sub .leftMenu2 {
+  width: 150px;
+  height: 40px;
+  border-style: solid;
+  border-width:1px;
+  position: absolute;
+  top: 50px;
+  left: 0px;
+}
+
+#menu #but5_sub .leftMenu2 span {
+  position: absolute;
+  top: 30%;
+  left: 0px;
+  margin: -10px 7px;
+}
+
+#menu #but5_sub .leftMenu2#but5_5 {
+  top: 50px;
+}
+
+#menu #but5_sub .leftMenu2#but5_4 {
+  top: 90px;
+}
+
+#menu #but5_sub .leftMenu2#but5_3 {
+  top: 130px;
+}
+
+#menu #but5_sub .leftMenu2#but5_1 {
+  top: 170px;
+}
+
+#menu #but5_sub .leftMenu2#but5_2 {
+  top: 210px;
 }

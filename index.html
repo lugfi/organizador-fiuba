@@ -181,70 +181,72 @@
 	<text text-anchor="end" x="5%" y="577" style="fill:rgb(35,99,20)">23:30</text>
 </svg>	
 
+  <!-- ¿Se usa el siguiente elemento? -->
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" opacity="1" style="position: absolute; left:5%;top:10px;z-index:1" id="canvas"></svg>
 
+  <!-- ¿Se usa el siguiente elemento? -->
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" opacity="1" style="position: absolute; left:5%;top:10px;z-index:2" id="topCanvas"></svg>
 
   <div id="resizeDiv" style="position:absolute;opacity:0.7;width:6px;height:90.4%;top:10px;left:90%;background-color:rgb(150,150,150);cursor:w-resize;z-index:3"></div>
 
+  <!-- ¿Se usa el siguiente elemento? -->
   <div style="position: absolute; left:10px; top:10px">
     <p id="demo"></p>
   </div>
 
-  <div id="cHTab" style="position:absolute;left:250px;top:100px;width:450px;height:450px;border-radius: 15px 15px 15px 15px;border-style:solid;border-width: 2px;visibility:hidden;z-index:3;">
-    <div align="center">
-      <cHText  style="font-size:24px;">Horario extracurricular</cHText><br><br>
-      <cHText>Descripción:</cHText> <input id="cHDesc" style="width:200px;"><br><br>
+  <div id="cHTab">
+    <span style="font-size:24px;">Horario extracurricular</span><br><br>
+    <label for="cHDesc">Descripción:</label> <input id="cHDesc" style="width:200px;"><br><br>
 
-      <div id="cHClasesDiv"></div>
-      <input type="submit" value="Agregar bloque" onclick="cHAgregarBloque();"><br>
-      <div style="position:absolute;left:180px;top:400px;">
-        <input type="submit" value="Cerrar" onclick="document.getElementById('cHTab').style.visibility = 'hidden';">
-        <input type="submit" value="Aceptar" onclick="cHAceptar();">
-      </div>
+    <div id="cHClasesDiv"></div>
+    <input type="submit" value="Agregar bloque" onclick="cHAgregarBloque();"><br>
+    <div style="position:absolute;left:180px;top:400px;">
+      <input type="submit" value="Cerrar" onclick="document.getElementById('cHTab').style.visibility = 'hidden';">
+      <input type="submit" value="Aceptar" onclick="cHAceptar();">
     </div>
   </div>
 
-  <div id="editMatTab" style="position:absolute;left:100px;top:70px;width:700px;height:520px;background-color:rgb(70,70,70);border-radius: 15px 15px 15px 15px;border-style:solid;border-color:rgb(20,20,20);border-width: 2px;visibility:hidden;z-index:3;" align="center"><br>
-    <textarea id="editMatText" style="resize:none;opacity:0.65;" rows="20" cols="95"></textarea><br>
+  <div id="editMatTab">
+    <br>
+    <textarea id="editMatText" rows="20" cols="85"></textarea><br>
     <input type="submit" value="Cerrar" onclick="document.getElementById('editMatTab').style.visibility = 'hidden';">
     <input type="submit" value="Aceptar" onclick="editMatAceptar();"><br>
-    <font style="color:white;font-size:14px;"><i>*Modificar el formato lo menos posible.<br> Es importante no quitar saltos de línea, y respetar los espacios dentro de cada línea.</i></font>
+    <span style="color:white;font-size:14px;"><i>*Modificar el formato lo menos posible.<br> Es importante no quitar saltos de línea, y respetar los espacios dentro de cada línea.</i></span>
   </div>
 
-  <div id="menu" style="position:absolute;top:60px;left:-122px;width:120px;height:400px;z-index:4" >
-    <object style="position:relative;top:-5px;left:110px;width:52px;height:318px;"  type="image/svg+xml" data="images/Opciones.svg"></object>
+  <div id="menu">
+    <object class="tab" type="image/svg+xml" data="images/Opciones.svg"></object>
 
-    <div id="but1" onclick="cHCrearHorario();" class="leftMenu"  style="position:absolute;top:50px;left:10px;width:110px;height:50px;">
-      <span style="position:absolute;top:50%;left:0px;margin:-20px 2px">Horario Extracurricular</span>
+    <div class="leftMenu" id="but1" onclick="cHCrearHorario();">
+      <span>Horario Extracurricular</span>
     </div>
-    <div id="but2" onclick="descargarHorarios();" class="leftMenu"  style="position:absolute;top:100px;left:10px;width:110px;height:50px;">
-      <span style="position:absolute;top:50%;left:0px;margin:-20px 2px">Descargar Horario</span>
+    <div class="leftMenu" id="but2" onclick="descargarHorarios();">
+      <span>Descargar Horario</span>
     </div>
-    <div id="but3" onclick="guardarEstado();" class="leftMenu"  style="position:absolute;top:150px;left:10px;width:110px;height:50px;">
-      <span style="position:absolute;top:50%;left:0px;margin:-10px 3px">Guardar Estado</span>
+    <div class="leftMenu" id="but3" onclick="guardarEstado();">
+      <span>Guardar Estado</span>
     </div>
-    <div id="but4" onclick="document.getElementById('fileinp').click();" class="leftMenu"  style="position:absolute;top:200px;left:10px;width:110px;height:50px;">
-      <span style="position:absolute;top:50%;left:0px;margin:-10px 7px">Cargar Estado</span>
+    <div class="leftMenu" id="but4" onclick="document.getElementById('fileinp').click();">
+      <span>Cargar Estado</span>
     </div>
-    <div id="but5" onclick="" class="leftMenu"  style="position:absolute;top:250px;left:10px;width:110px;height:100px;">
-      <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">Usar datos de cuatrimestres pasados</span>
+    <div class="leftMenu" id="but5">
+      <span>Usar datos de cuatrimestres pasados</span>
     </div>
-    <div id="but5_sub" style="visibility:hidden;position:absolute;top:250px;left:120px;width:110px;height:100px;">
-      <div id="but5_5"  class="leftMenu2"  style="position:absolute;top:50px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">2do Cuatrimestre 2016</span>
+    <div id="but5_sub">
+      <div class="leftMenu2" id="but5_5">
+        <span>2do Cuatrimestre 2016</span>
       </div>
-      <div id="but5_4"  class="leftMenu2"  style="position:absolute;top:90px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">1er Cuatrimestre 2016</span>
+      <div class="leftMenu2" id="but5_4">
+        <span>1er Cuatrimestre 2016</span>
       </div>
-      <div id="but5_3"  class="leftMenu2"  style="position:absolute;top:130px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">2do Cuatrimestre 2015</span>
+      <div class="leftMenu2" id="but5_3">
+        <span>2do Cuatrimestre 2015</span>
       </div>
-      <div id="but5_1"  class="leftMenu2"  style="position:absolute;top:170px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">1er Cuatrimestre 2015</span>
+      <div class="leftMenu2" id="but5_1">
+        <span>1er Cuatrimestre 2015</span>
       </div>
-      <div id="but5_2"  class="leftMenu2"  style="position:absolute;top:210px;left:0px;width:150px;height:40px;border-style:solid;border-width:1px;">
-        <span style="position:absolute;top:30%;left:0px;margin:-10px 7px">2do Cuatrimestre 2014</span>
+      <div class="leftMenu2" id="but5_2">
+        <span>2do Cuatrimestre 2014</span>
       </div>
     </div>
   </div>
