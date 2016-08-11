@@ -1,6 +1,6 @@
-/******************
- * General styles *
- ******************/
+/******************************************************************************
+ * General styles
+ ******************************************************************************/
 
 html {
   -webkit-user-select: none; /* Chrome/Safari */
@@ -48,9 +48,9 @@ a:active {
   color: yellow;
 }
 
-/*****************
- * Site elements *
- *****************/
+/******************************************************************************
+ * Site elements
+ ******************************************************************************/
 
 #site-background {
   height: 100vh;
@@ -74,6 +74,11 @@ a:active {
   top: 91%;
   left: 21%;
   text-align: center;
+}
+
+#divComb #combMinMat,
+#divComb #combMaxSup {
+  width: 35px;
 }
 
 #msgBox {
@@ -151,7 +156,27 @@ msgAlert {
   left: -40px;
 }
 
-#box2 #buscadas {
+#box2 #buscar-materia-content {
+  width: 500px;
+  text-align: center;
+}
+
+#box2 #buscar-materia-content h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 32px;
+}
+
+#box2 #buscar-materia-content #textCuatri {
+  font-size: 16px;
+  color: green;
+}
+
+#box2 #buscar-materia-content #buscar {
+  width: 400px;
+}
+
+#box2 #buscar-materia-content #buscadas {
   padding: 15px;
   font-size: 15px;
   text-align: left;
@@ -200,6 +225,18 @@ che {
   cursor: pointer;
 }
 
+#resizeDiv {
+  position: absolute;
+  opacity: 0.7;
+  width: 6px;
+  height: 90.4%;
+  top: 10px;
+  left: 90%;
+  background-color: rgb(150,150,150);
+  cursor: w-resize;
+  z-index:3;
+}
+
 #cHTab {
   background: -webkit-linear-gradient(left top, rgb(211, 211, 241), rgb(181, 181, 181)); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(bottom right, rgb(211, 211, 241), rgb(181, 181, 181)); /* For Opera 11.1 to 12.0 */
@@ -221,6 +258,23 @@ che {
   z-index: 3;
 }
 
+#cHTab h3 {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: inherit;
+}
+
+#cHTab #cHDesc {
+  width: 200px;
+}
+
+#cHTab #cHButtons {
+  position: absolute;
+  left: 180px;
+  top: 400px;
+}
+
 #editMatTab {
   background: -webkit-linear-gradient(left top, rgb(211, 211, 211), rgb(181, 181, 181)); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(bottom right, rgb(211, 211, 211), rgb(181, 181, 181)); /* For Opera 11.1 to 12.0 */
@@ -235,7 +289,9 @@ che {
   border-radius: 15px 15px 15px 15px;
   border-color: rgb(20,20,20);
   border-width: 2px;
+  font-size: 14px;
   text-align: center;
+  color: white;
   visibility: hidden;
   z-index: 3;
 }
@@ -320,4 +376,32 @@ ul#but5_sub li:last-child {
 ul#but5_sub li:hover {
   background-color: rgb(101, 9, 9);
   color: rgb(255, 255, 255);
+}
+
+/******************************************************************************
+ * Color classes
+ ******************************************************************************/
+
+.dark-red {
+  color: darkred;
+}
+
+.text-dark-gray {
+  color: #323232;
+}
+
+/******************************************************************************
+ * Helper classes
+ ******************************************************************************/
+
+/* Hide visually and from screen readers
+ */
+.hidden {
+  display: none !important;
+}
+
+/* Hide visually and from screen readers, but maintain layout
+ */
+.invisible {
+  visibility: hidden;
 }

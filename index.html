@@ -25,9 +25,9 @@
 
 <body>
 
-  <input id="fileinp" type="file" style="visibility:hidden" onchange="openFile(event)">
+  <input type="file" class="hidden" id="fileinp" onchange="openFile(event)">
 
-  <input id="fileDatos" type="file" style="visibility:hidden" onchange="openFileDatos(event)">
+  <input type="file" class="hidden" id="fileDatos" onchange="openFileDatos(event)">
 
   <svg id="site-background">
     <rect width="100%" height="100%" fill="rgb(45,45,45)" style="stroke-width:2px;stroke-color:rgb(9,153,201)" />
@@ -36,21 +36,21 @@
   </svg>
 
   <div id="app-info">
-    <span style="color:darkred;">Actualizado para 2do Cuatrimestre 2016</span><br>
-    <span style="color:rgb(50,50,50);">En fase de prueba. Bugs, ideas y consultas a <i>fspadave@fi.uba.ar</i></span><br>
+    <span class="dark-red">Actualizado para 2do Cuatrimestre 2016</span><br>
+    <span class="text-dark-gray">En fase de prueba. Bugs, ideas y consultas a <i>fspadave@fi.uba.ar</i></span><br>
     <a href="https://github.com/lugfi/organizador-fiuba">GitHub - Organizador Fiuba</a>
   </div>
 
-  <div id="divComb">
-    <input id="subIzquierda" type="submit" value="<" onclick="siguienteComb(0);" style="visibility:hidden">
+  <div class="text-dark-gray" id="divComb">
+    <input type="submit" value="<" class="invisible" id="subIzquierda" onclick="siguienteComb(0);">
     <input type="submit" value="Calcular combinaciones" onclick="calcularCombinaciones();">
-    <input id="subDerecha" type="submit" value=">" onclick="siguienteComb(1);" style="visibility:hidden"><br>
-    <span style="color:rgb(50,50,50);"><i>Con al menos </i></span>
-    <input id="combMinMat" min="0" max="10" type="number" style="width:35px;" value="0">
-    <span style="color:rgb(50,50,50);"><i>materias</i></span><br>
-    <span style="color:rgb(50,50,50);"><i>Permitir hasta </i></span>
-    <input id="combMaxSup" min="0" max="50" step="0.5" type="number" style="width:35px;" value="0">
-    <span style="color:rgb(50,50,50);"><i>horas de superposición</i></span><br>
+    <input type="submit" value=">" class="invisible" id="subDerecha" onclick="siguienteComb(1);"><br>
+    <i>Con al menos </i>
+    <input id="combMinMat" type="number" min="0" max="10" value="0">
+    <i>materias</i><br>
+    <i>Permitir hasta </i>
+    <input id="combMaxSup" type="number" min="0" max="50" step="0.5" value="0">
+    <i>horas de superposición</i><br>
   </div>
 
   <div id="msgBox" onclick="document.getElementById('msgBox').style.visibility = 'hidden';">
@@ -64,9 +64,9 @@
   <div id="box2">
     <object class="tab" type="image/svg+xml" data="images/BuscarMateria.svg"></object>
 
-    <div style="width:500px;" align="center">
-      <span style="font-size:32px;">Buscar materia</span><br>
-      <span id="textCuatri" style="font-size:16px; color:green;">(Primero tenes que cargar los datos.)</span><br>
+    <div id="buscar-materia-content">
+      <h3>Buscar materia</h3>
+      <span id="textCuatri">(Primero tenes que cargar los datos.)</span><br>
       Agregar cursos solo de:<br>
       <input type="checkbox" id="car1"> <label for="car1">Civil</label> -
       <input type="checkbox" id="car2"> <label for="car2">Industrial</label> -
@@ -81,7 +81,7 @@
       <input type="checkbox" id="car11"> <label for="car11">Alimentos</label> -
       <input type="checkbox" id="car12"> <label for="car12">Ing. Agrimensura</label> -
       <a onclick="checkAll()">Todas</a><br>
-      <input id="buscar" style="width:400px;" oninput="buscarPrecargadas();" onclick="clickBuscar();" value="Ingresá la materia que queres buscar">
+      <input id="buscar" oninput="buscarPrecargadas();" onclick="clickBuscar();" value="Ingresá la materia que queres buscar">
       <div id="buscadas"></div>
     </div>
   </div>
@@ -187,7 +187,7 @@
   <!-- ¿Se usa el siguiente elemento? -->
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 580" preserveAspectRatio="none" width="85%" height="90%" opacity="1" style="position: absolute; left:5%;top:10px;z-index:2" id="topCanvas"></svg>
 
-  <div id="resizeDiv" style="position:absolute;opacity:0.7;width:6px;height:90.4%;top:10px;left:90%;background-color:rgb(150,150,150);cursor:w-resize;z-index:3"></div>
+  <div id="resizeDiv"></div>
 
   <!-- ¿Se usa el siguiente elemento? -->
   <div style="position: absolute; left:10px; top:10px">
@@ -195,12 +195,12 @@
   </div>
 
   <div id="cHTab">
-    <span style="font-size:24px;">Horario extracurricular</span><br><br>
-    <label for="cHDesc">Descripción:</label> <input id="cHDesc" style="width:200px;"><br><br>
+    <h3>Horario extracurricular</h3>
+    <label for="cHDesc">Descripción:</label> <input id="cHDesc"><br><br>
 
     <div id="cHClasesDiv"></div>
     <input type="submit" value="Agregar bloque" onclick="cHAgregarBloque();"><br>
-    <div style="position:absolute;left:180px;top:400px;">
+    <div id="cHButtons">
       <input type="submit" value="Cerrar" onclick="document.getElementById('cHTab').style.visibility = 'hidden';">
       <input type="submit" value="Aceptar" onclick="cHAceptar();">
     </div>
@@ -211,7 +211,7 @@
     <textarea id="editMatText" rows="20" cols="85"></textarea><br>
     <input type="submit" value="Cerrar" onclick="document.getElementById('editMatTab').style.visibility = 'hidden';">
     <input type="submit" value="Aceptar" onclick="editMatAceptar();"><br>
-    <span style="color:white;font-size:14px;"><i>*Modificar el formato lo menos posible.<br> Es importante no quitar saltos de línea, y respetar los espacios dentro de cada línea.</i></span>
+    <i>*Modificar el formato lo menos posible.<br> Es importante no quitar saltos de línea, y respetar los espacios dentro de cada línea.</i>
   </div>
 
   <ul id="menu">
