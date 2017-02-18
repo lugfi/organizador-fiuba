@@ -1422,7 +1422,7 @@
 	  });
 	  
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', "Horarios_1Q2017.csv", true);
+        xhr.open('GET', "Horarios_2Q2016.csv", true);
         xhr.responseType = 'blob';
         xhr.onload = function(e) {
             if (this.status == 200) {
