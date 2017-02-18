@@ -1199,6 +1199,9 @@
 					
 				if(cuatriDatos == "2Q2016")
 					document.getElementById('textCuatri').innerHTML = "(2do Cuatrimestre 2016)";
+				
+				if(cuatriDatos == "1Q2017")
+					document.getElementById('textCuatri').innerHTML = "(1er Cuatrimestre 2017)";
 					
 				var i;
 				
@@ -1402,8 +1405,24 @@
 			document.getElementById('but5_sub').style.visibility = 'hidden';
 	  });
 	  
+		$("#but5_6").click(function(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', "Horarios_1Q2017.csv", true);
+			xhr.responseType = 'blob';
+			xhr.onload = function(e) {
+				if (this.status == 200) {
+					openFileDatos({target: {files: [this.response]}});
+				}
+			};
+			xhr.send();
+			//escribirMensaje("Cargados horarios 2do Cuatrimestre 2016",0);
+			cuatriDatos = "1Q2017";
+			document.getElementById('textCuatri').innerHTML = "(1er Cuatrimestre 2017)";
+			document.getElementById('but5_sub').style.visibility = 'hidden';
+	  });
+	  
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', "Horarios_2Q2016.csv", true);
+        xhr.open('GET', "Horarios_1Q2017.csv", true);
         xhr.responseType = 'blob';
         xhr.onload = function(e) {
             if (this.status == 200) {
@@ -1443,7 +1462,7 @@
 	
 	var nextColor = 0;
 	
-	var cuatriActual = "2Q2016";
+	var cuatriActual = "1Q2017";
 	
 	var cuatriDatos = cuatriActual;
 	
