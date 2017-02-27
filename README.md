@@ -6,7 +6,7 @@ El organizador te ayuda a organizar las materias con un calendario semanal, most
 
 # Última actualización
 
-Primer cuatrimestre de 2016.
+Primer cuatrimestre de 2017.
 
 # Uso
 
