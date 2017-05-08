@@ -8,127 +8,24 @@
 		tBusqueda = setTimeout(timerBusqueda, 1000);	
 	}
 
-	function numDia(str){
-		if(str.indexOf("Lunes")!=-1) return 0;
-		if(str.indexOf("Martes")!=-1) return 1;
-		if(str.indexOf("Miércoles")!=-1) return 2;
-		if(str.indexOf("Jueves")!=-1) return 3;
-		if(str.indexOf("Viernes")!=-1) return 4;
-		if(str.indexOf("Sábado")!=-1) return 5;
-		if(str.indexOf("lunes")!=-1) return 0;
-		if(str.indexOf("martes")!=-1) return 1;
-		if(str.indexOf("miércoles")!=-1) return 2;
-		if(str.indexOf("jueves")!=-1) return 3;
-		if(str.indexOf("viernes")!=-1) return 4;
-		if(str.indexOf("sábado")!=-1) return 5;
-		if(str.indexOf("miercoles")!=-1) return 2;
-		if(str.indexOf("sabado")!=-1) return 5;		
-		return -1;	
-	}
-	
-	function numHora(str){
-		var s = str.split(":");
-		var x = (Number(s[0]) - 7)*2;
-		if(s[1] == "30") x++;
-		return x;	
-	}
 
-	function Materia(c, n, txt) {
-		this.texto = txt;
-		this.codigo = c;
-		this.nombre = n;
-		this.sel = 0;
-		this.cursoSel = 0;
-		this.expanded = 1;
-		this.forzar = 0;
-		this.cursoForzado = new Array();
-		this.cursos = new Array();
-		this.color = color(nextColor);
-		nextColor++;
-	}
-	
-	function Curso(d){
-		this.docentes = d;
-		this.clases = new Array();
-	}
-	
-	function Clase(tex, ti, d, i, f, s, a){
-		this.texto = tex;
-		this.tipo = ti;
-		this.dia = d;
-		this.inicio = i;
-		this.fin = f;
-		this.sede = s;
-		this.aula = a;	
-	}
-	
-	function materiaFromFile(path){
-		if(allCheckFalse()==1){
-			escribirMensaje("Tenes que elegir alguna carrera",1);
-			return;
-		}
-		var xhr;
-		
-		if (window.XMLHttpRequest) {
-			xhr = new XMLHttpRequest();
-		} else if (window.ActiveXObject) {
-			xhr = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-
-		xhr.onreadystatechange = gotFile;
-		xhr.open("GET",path);
-		xhr.overrideMimeType('text/xml; charset=iso-8859-1');
-		xhr.send();
-		
-		function gotFile(){
-			if (xhr.readyState === 4) {
-				var fileString = xhr.responseText.split("<");
-				var materia = materiaFromText(fileString[0]);
-				
-				if(materia==-1){
-					return;				
-				}
-				
-				if(materia == 0){
-					escribirMensaje("No hay cursos para las carreras elegidas",1);
-					return;
-				}else{
-					indexCombinacion = 0;
-					aCombinaciones.length = 0;
-					escribirMensaje("Materia agregada",0);
-					document.getElementById("combMinMat").value = aMaterias.length +1;
-					document.getElementById("subIzquierda").style.visibility = "hidden";	
-					document.getElementById("subDerecha").style.visibility = "hidden";
-				}
-		
-				aMaterias.push(materia);
-		
-				llenarLista();
-				
-			}
-		}
-		
-	}
-	
-	function materiaFromText(texto){
-		return parsearMateria(texto,1);
-	}
-	
 	function materiaFromId(id){
 		if(allCheckFalse()==1){
 			escribirMensaje("Tenes que elegir alguna carrera",1);
 			return;
 		}
 
-		var materia = materiaFromText(aDatos[id][3]);
-				
-		if(materia==-1){
-			return;				
+		var materia = aDatos[id][3];
+
+		if(materia === undefined) {
+			return;
 		}
-		if(materia == 0){
+
+		if(materia === 0) {
 			escribirMensaje("No hay cursos para las carreras elegidas",1);
 			return;
-		}else{
+		}
+		else {
 			indexCombinacion = 0;
 			aCombinaciones.length = 0;
 			escribirMensaje("Materia agregada",0);
@@ -136,7 +33,7 @@
 			document.getElementById("subIzquierda").style.visibility = "hidden";	
 			document.getElementById("subDerecha").style.visibility = "hidden";
 		}
-				
+
 		aMaterias.push(materia);
 		
 		llenarLista();
@@ -156,124 +53,6 @@
 				}
 				html += "<br>";*/
 	}
-	
-	function materiaFromTextSinValidar(texto){
-		return parsearMateria(texto,0);
-	}
-	
-	function parsearMateria(texto,val){
-		var str = texto;
-		str = str.replace(/\t/g," ");
-		str = str.replace(/"  "/g," ");
-		var pos;
-		pos = str.indexOf("Materia:");
-		pos = str.indexOf(" ",pos);
-		
-		var cod = str.slice(pos+1,pos+5);
-		pos2 = str.indexOf("Vacantes",pos);
-		var nom = str.slice(pos+6,pos2-1);
-		if(Number(cod) < 5000 || Number(cod)>9999){
-			escribirMensaje("Error al cargar materia: El código no es correcto",1);
-			return -1;
-		}
-		if(nom.length < 5){
-			escribirMensaje("Error al cargar materia: El nombre no es correcto",1);
-			return -1;
-		}
-		
-		if(val == 1){
-			for(var i=0;i<aMaterias.length;i++){
-				if(aMaterias[i].nombre == nom && aMaterias[i].codigo == cod){
-					escribirMensaje("Error: Esa materia ya está cargada",1);
-					return -1;
-				}		
-			}
-		}
-		
-		var mat = new Materia(cod, nom, texto);
-		
-		var cursos = str.split("Materia: ");
-		for(i=1;i<cursos.length;i++){
-			str = cursos[i];
-			
-			pos = str.indexOf("Docente:");
-			pos = str.indexOf(" ",pos);
-			pos2 = str.indexOf("\n",pos+1);
-			var doc = str.slice(pos+1,pos2);
-			pos = str.indexOf("Carreras:",pos2);
-			pos = str.indexOf(" ",pos);
-			pos2 = str.indexOf("\n",pos+1);
-			var carreras = str.slice(pos+1,pos2-1);
-			if(val==1){
-				if(validarCurso(carreras)==0) continue;
-			}
-			var cur = new Curso(doc);
-			
-			pos2 = str.indexOf("Curso: ",pos2-1);	
-			pos2 = str.indexOf("\n",pos2+1);
-			str = str.slice(pos2+1,str.length);
-			
-			while(str.indexOf("Aula:")!=-1) str = str.replace("Aula:","");
-			while(str.indexOf("-")!=-1) str = str.replace("-"," ");
-			while(str.indexOf("\r")!=-1) str = str.replace("\r","");
-			while(str.indexOf("\n\n")!=-1) str = str.replace("\n\n","\n");
-			var clases = str.split("\n");
-			
-			for(var k=0;k<clases.length;k++){
-				if(clases[k].length < 3){
-					clases.splice(k,1);
-					k--;
-				}
-			}
-			
-			for(var j=0;j<clases.length;j++){
-				str = clases[j];
-				while(str.indexOf("  ")!=-1) str = str.replace("  "," ");
-				var data = str.split(" ");
-				var l = data.length;
-				var tipo = "";
-				for(var k=3;k<l-3;k++){
-					tipo = tipo + " " + data[k];
-				}
-				var clase = new Clase(str,tipo,numDia(data[0]),numHora(data[1]),numHora(data[2]),data[l-3],data[l-2]);
-				
-				cur.clases.push(clase);
-				
-			}
-			
-			mat.cursos.push(cur);
-			
-		}
-		if(mat.cursos.length == 0){
-			return 0;	
-		}else{
-			return mat;
-		}
-	
-	}
-	
-	/* function textoFromMat(index){
-		var path = aMaterias[index].codigo + ".html";
-		var xhr;
-		
-		if (window.XMLHttpRequest) {
-			xhr = new XMLHttpRequest();
-		} else if (window.ActiveXObject) {
-			xhr = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xhr.onreadystatechange = gotFile;
-		xhr.open("GET",path);
-		xhr.overrideMimeType('text/xml; charset=iso-8859-1');
-		xhr.send();
-	
-		function gotFile(){
-			if (xhr.readyState === 4) {
-				var fileString = xhr.responseText.split("<");
-				editarMateria(fileString[0],index);
-			}
-		}
-	
-	} */
 	
 	function checkedIfTrue(b){
 		if(b==1){
@@ -326,17 +105,15 @@
 		
 	function llenarLista(){
 		document.getElementById("listaInfo").innerHTML = "";
-		var totalCursos = 0;
 		var idCurso = 0;
-		for(var i=0;i<aMaterias.length;i++){
+		for (var i = 0; i < aMaterias.length; i++) {
 			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre.substr(0,55) + "</che> <input onchange=\"changeMatColor(" + i + ")\" value=\"" + aMaterias[i].color + "\" id=\"matColor" + i + "\" type=\"color\" /> <br> <b><a style=\"font-color:blue\" onclick=\"editarMateria(" + i + ");\">Editar</a> - <a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a> - <a style=\"font-color:blue\" onclick=\"forzarMateria(" + i + ");\">" + textIfTrue(aMaterias[i].forzar,"<font color=red>") + noIfTrue(aMaterias[i].forzar) + " Forzar Materia" + textIfTrue(aMaterias[i].forzar,"</font>") + "</a></b> <br>";
 			if(aMaterias[i].expanded == 0) continue;
-			for(var j=0;j<aMaterias[i].cursos.length;j++){
-				totalCursos++;
+			for (var j = 0; j < aMaterias[i].cursos.length; j++) {
 				document.getElementById("listaInfo").innerHTML += "<input  " + checkedIfTrue(aMaterias[i].cursoSel == j+1) + " type=\"radio\" name=\"materia" + i + "\" id=\"rad" + idCurso + "\" onclick=\"clicked(" + i + "," + (j+1) + ",0);\"><label for=\"rad" + idCurso + "\">" + aMaterias[i].cursos[j].docentes + "</label> - <a style=\"font-color:blue\" onclick=\"forzarCursoMateria(" + i + "," + (j+1) + ");\"><b>" + textIfTrue(aMaterias[i].cursoForzado.indexOf(j+1) != -1,"<font color=red>") + noIfTrue(aMaterias[i].cursoForzado.indexOf(j+1) != -1) + " Forzar Curso" + textIfTrue(aMaterias[i].cursoForzado.indexOf(j+1) != -1,"</font>") + "</b></a><br>";
 				idCurso++;
 			}
-		}	
+		}
 		
 	}
 	
@@ -412,12 +189,16 @@
 	
 	function dibujarCalendario(){
 		clearSVG();
-		for(var i=0;i< aMaterias.length;i++){
-			if(aMaterias[i].sel==1){
-				if(aMaterias[i].cursoSel == 0) continue;
-				var ind = (aMaterias[i].cursoSel) - 1 ;
-				var c = aMaterias[i].cursos[ind].clases;
-				for(var j=0;j< c.length;j++){
+		for (var i = 0; i < aMaterias.length; i++) {
+			var materia = aMaterias[i];
+			if(materia.sel == 1) {
+				if(materia.cursoSel == 0) {
+					continue;
+				}
+
+				var ind = (materia.cursoSel) - 1;
+				var c = materia.cursos[ind].clases;
+				for (var j = 0; j < c.length; j++) {
 					var posX = 6.3 + (15.625 * c[j].dia);
 					var posY = 6.20 + (2.76 * c[j].inicio);
 					var altura = 2.76 * (c[j].fin - c[j].inicio);
@@ -430,11 +211,11 @@
 					rect.setAttributeNS(null,"y",posY + "%");
 					rect.setAttributeNS(null,"width",15.625 + "%");
 					rect.setAttributeNS(null,"height",altura + "%");
-					rect.setAttributeNS(null,"fill", aMaterias[i].color);
+					rect.setAttributeNS(null,"fill", materia.color);
 					rect.setAttributeNS(null,"stroke","none");
 					rect.setAttributeNS(null,"opacity",0.5);
 					document.getElementById("canvas").appendChild(rect);
-					var lines = aMaterias[i].nombre.split(" ");
+					var lines = materia.nombre.split(" ");
 					for(var k=0;k < lines.length-1;k++){
 						if(lines[k].length + lines[k+1].length < 16){
 							lines[k] = lines[k] + " " + lines[k+1];
@@ -468,7 +249,7 @@
 					}
 				}
 			}
-		}	
+		}
 		
 		var disponibilidad = new Array();
 		
@@ -477,22 +258,26 @@
 			aDescCelda[i] = "";
 		}
 		
-		for(i=0;i<aMaterias.length;i++){
-			if(aMaterias[i].cursoSel == 0) continue;
-			for(var j=0;j<aMaterias[i].cursos[aMaterias[i].cursoSel-1].clases.length;j++){
-				var cInicio = aMaterias[i].cursos[aMaterias[i].cursoSel-1].clases[j].inicio + aMaterias[i].cursos[aMaterias[i].cursoSel-1].clases[j].dia * 34;
-				var cFin = aMaterias[i].cursos[aMaterias[i].cursoSel-1].clases[j].fin + aMaterias[i].cursos[aMaterias[i].cursoSel-1].clases[j].dia * 34;
+		for (i = 0; i < aMaterias.length; i++) {
+			if(aMaterias[i].cursoSel == 0) {
+				continue;
+			}
+
+			for (var j = 0; j < aMaterias[i].cursos[aMaterias[i].cursoSel - 1].clases.length; j++) {
+				var clase = aMaterias[i].cursos[aMaterias[i].cursoSel - 1].clases[j];
+				var cInicio = clase.inicio + clase.dia * 34;
+				var cFin = clase.fin + clase.dia * 34;
 				for(k=cInicio;k<cFin;k++){
 					disponibilidad[k]--;
 					if(aDescCelda[k] == ""){
-						aDescCelda[k] = shortNames(aMaterias[i].nombre) + ": " + aMaterias[i].cursos[aMaterias[i].cursoSel-1].docentes;
+						aDescCelda[k] = shortNames(aMaterias[i].nombre) + ": " + aMaterias[i].cursos[aMaterias[i].cursoSel - 1].docentes;
 					}else{
 						aDescCelda[k] = "Superposición: " + aDescCelda[k] + " y " + shortNames(aMaterias[i].nombre) + ": " + aMaterias[i].cursos[aMaterias[i].cursoSel-1].docentes;		
 					}
 				}
 			}
-		} 
-		
+		}
+
 		var ini = 0;
 		var flag = 0;
 		for(var i=0;i<204;i++){
@@ -895,7 +680,7 @@
 			
 			aMaterias[i].sel = 1;
 			if(cursos[i]==0) aMaterias[i].sel = 0;
-			aMaterias[i].cursoSel = cursos[i];			
+			aMaterias[i].cursoSel = cursos[i];
 		}
 		dibujarCalendario();
 		llenarLista();
@@ -935,20 +720,20 @@
 		for(var i = 0;i<aDatos.length;i++){
 			if(toUpperSinTilde(aDatos[i][1]).indexOf(str) != -1 || toUpperSinTilde(aDatos[i][2]).indexOf(str) != -1){
 			
-				if(aDatos[i][3].indexOf("Todas") == -1){
+				if(aDatos[i][3].texto.indexOf("Todas") == -1){
 					var filtrar = 1;
-					if(document.getElementById("car1").checked == true && aDatos[i][3].indexOf("Civil") != -1) filtrar = 0;
-					if(document.getElementById("car2").checked == true && aDatos[i][3].indexOf("Industrial") != -1) filtrar = 0;
-					if(document.getElementById("car3").checked == true && aDatos[i][3].indexOf("Naval") != -1) filtrar = 0;
-					if(document.getElementById("car4").checked == true && aDatos[i][3].indexOf("Agrim") != -1) filtrar = 0;
-					if(document.getElementById("car5").checked == true && aDatos[i][3].indexOf("Mecánica") != -1) filtrar = 0
-					if(document.getElementById("car6").checked == true && aDatos[i][3].indexOf("Electricista") != -1) filtrar = 0;
-					if(document.getElementById("car7").checked == true && aDatos[i][3].indexOf("Electrónica") != -1) filtrar = 0;
-					if(document.getElementById("car8").checked == true && aDatos[i][3].indexOf("Química") != -1) filtrar = 0;
-					if(document.getElementById("car9").checked == true && aDatos[i][3].indexOf("Sistemas") != -1) filtrar = 0;
-					if(document.getElementById("car10").checked == true && aDatos[i][3].indexOf("Informática") != -1) filtrar = 0;
-					if(document.getElementById("car11").checked == true && aDatos[i][3].indexOf("Alimentos") != -1) filtrar = 0;
-					if(document.getElementById("car12").checked == true && aDatos[i][3].indexOf("Ing.Agrim") != -1) filtrar = 0;	
+					if(document.getElementById("car1").checked == true && aDatos[i][3].texto.indexOf("Civil") != -1) filtrar = 0;
+					if(document.getElementById("car2").checked == true && aDatos[i][3].texto.indexOf("Industrial") != -1) filtrar = 0;
+					if(document.getElementById("car3").checked == true && aDatos[i][3].texto.indexOf("Naval") != -1) filtrar = 0;
+					if(document.getElementById("car4").checked == true && aDatos[i][3].texto.indexOf("Agrim") != -1) filtrar = 0;
+					if(document.getElementById("car5").checked == true && aDatos[i][3].texto.indexOf("Mecánica") != -1) filtrar = 0
+					if(document.getElementById("car6").checked == true && aDatos[i][3].texto.indexOf("Electricista") != -1) filtrar = 0;
+					if(document.getElementById("car7").checked == true && aDatos[i][3].texto.indexOf("Electrónica") != -1) filtrar = 0;
+					if(document.getElementById("car8").checked == true && aDatos[i][3].texto.indexOf("Química") != -1) filtrar = 0;
+					if(document.getElementById("car9").checked == true && aDatos[i][3].texto.indexOf("Sistemas") != -1) filtrar = 0;
+					if(document.getElementById("car10").checked == true && aDatos[i][3].texto.indexOf("Informática") != -1) filtrar = 0;
+					if(document.getElementById("car11").checked == true && aDatos[i][3].texto.indexOf("Alimentos") != -1) filtrar = 0;
+					if(document.getElementById("car12").checked == true && aDatos[i][3].texto.indexOf("Ing.Agrim") != -1) filtrar = 0;	
 					if(filtrar == 1) continue;
 				}			
 			
@@ -1033,127 +818,7 @@
 		}
 
 	}
-	
-	function cHAceptar(){
-		if(document.getElementById("cHDesc").value == ""){
-			escribirMensaje("Tenes que agregar una descripción",1);
-			return;
-		}
-		
-		for(var i=0;i<cHSize;i++){
-			if(Number(document.getElementById("cHFin" + i).value) <= Number(document.getElementById("cHInicio" + i).value)){
-				escribirMensaje("Error en el bloque " + (i+1),1);
-				return;
-			}		
-		}
-		
-		var mat = new Materia("EXTC",document.getElementById("cHDesc").value,"No editable");
-		mat.forzar = 1;
-		var cur = new Curso(document.getElementById("cHDesc").value);
-		
-		
-		
-		var inicio;
-		var fin;
-		var dia;
-		
-		for(i=0;i<cHSize;i++){
-			if(document.getElementById("cHDia" + i).value == "6"){
-				inicio = Number(document.getElementById("cHInicio" + i).value);
-				fin = Number(document.getElementById("cHFin" + i).value);
-				for(var j=0;j<5;j++){
-					var clase = new Clase("","Extracurricular",j,inicio,fin,"","");
-					cur.clases.push(clase);
-				}
-				continue;
-			}
-			dia = Number(document.getElementById("cHDia" + i).value);
-			inicio = Number(document.getElementById("cHInicio" + i).value);
-			fin = Number(document.getElementById("cHFin" + i).value);
-			var clase = new Clase("","Extracurricular",dia,inicio,fin,"","");
-			cur.clases.push(clase);
-		}
-		
-		
-		mat.cursos.push(cur);
-		
-		aMaterias.push(mat);
-		
-		llenarLista();
-		
-		
-		escribirMensaje("Horario agregado",0);
-		
-		document.getElementById('cHTab').style.visibility = 'hidden';
-	}
-	
-	function guardarEstado(){
-		var str = "";
-		for(var i=0;i<aMaterias.length;i++){
-			if(aMaterias[i].texto == "No editable"){
-				str += aMaterias[i].codigo + "," + aMaterias[i].nombre + "\n";
-				for(var j =0;j<aMaterias[i].cursos[0].clases.length;j++){
-					str += aMaterias[i].cursos[0].clases[j].dia + "," + aMaterias[i].cursos[0].clases[j].inicio + "," + aMaterias[i].cursos[0].clases[j].fin +   "\n";
-				}
-				
-				str += "<separador>";
-			}else{
-				str += aMaterias[i].texto + "<separador>";			
-			}
-		}
-		
-		for(i=0;i<aMaterias.length;i++){
-			str += aMaterias[i].sel + "," + aMaterias[i].cursoSel + "\n";
-		}
-		
-		var a = window.document.createElement('a');
-		a.href = window.URL.createObjectURL(new Blob([str], {type: 'text'}));
-		a.download = 'organizadorFiuba.txt';
 
-		
-		document.body.appendChild(a)
-		a.click();		
-		document.body.removeChild(a)
-	}
-	
-	function cargarEstado(str){
-		var data = str.split("<separador>");
-		var txt;
-		aMaterias.length = 0;
-		for(var i=0;i<data.length-1;i++){
-			if(data[i].indexOf("EXTC") == 0){
-				txt = data[i].split("\n");
-				var linea = txt[0].split(",");
-				var mat = new Materia(linea[0],linea[1],"No editable");
-				
-				var cur = new Curso(linea[1]);
-				
-				for(var j=1;j<txt.length-1;j++){
-					linea = txt[j].split(",");
-					var clase = new Clase("","Extracurricular",Number(linea[0]),Number(linea[1]),Number(linea[2]),"","");
-					cur.clases.push(clase);
-				}
-				
-				mat.cursos.push(cur);
-				
-				aMaterias.push(mat);
-				
-			}else{
-				aMaterias.push(materiaFromTextSinValidar(data[i]));
-			}
-		}
-		
-		txt = data[data.length-1].split("\n");
-		for(i=0;i<txt.length-1;i++){
-			linea = txt[i].split(",");
-			aMaterias[i].sel = linea[0];
-			aMaterias[i].cursoSel = linea[1];
-		}
-		
-		llenarLista();
-		dibujarCalendario();
-	}
-	
 	function get_browser_info(){
 		var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
 		if(/trident/i.test(M[1])){
@@ -1315,13 +980,7 @@
 	var cHSize = 0;
 	
 	var editMateriaIndex = 0;
-	
-	//var colors = ["255,0,0", "0,255,0", "0,0,255" , "235,232,79" , "85,221,223", "231,119,21", "186,6,189" , "132,204,9" , "106,74,11"];
-	
-	var colors = ["#FF5E5E", "#FF8F40", "#FFF45E" , "#94FF52" , "#7CD9D4", "#A876F5", "#FFA1F2" , "#BF6E45", "#3ABA7A", "#275BCC", "#82F5B4", "#B1B8C4", "#BA3A7A"];
-	
-	var nextColor = 0;
-	
+
 	var cuatriActual = "1Q2017";
 	
 	var cuatriDatos = cuatriActual;
