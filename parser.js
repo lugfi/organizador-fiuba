@@ -21,7 +21,7 @@ function parse(dir) {
 					let linea = stringDatos[i].split(';');
 					aDatos[i] = new Array(4);
 					aDatos[i][0] = linea[0];
-					aDatos[i][1] = linea[2];
+					aDatos[i][1] = linea[2].trim();
 					aDatos[i][2] = linea[3];
 					aDatos[i][3] = parseMateria(linea[4]);
 				}
@@ -55,9 +55,8 @@ function parseMateria(texto) {
 	// }
 
 	var mat = {
-		texto: texto,
 		codigo: cod,
-		nombre: nom,
+		nombre: nom.trim(),
 		cursos: [],
 		// necesario para el frontend
 		sel: 0,
@@ -81,7 +80,8 @@ function parseMateria(texto) {
 		pos2 = str.indexOf("\n", pos + 1);
 		var carreras = str.slice(pos + 1, pos2 - 1);
 		var cur = {
-			docentes: doc,
+			carreras: parseCarreras(carreras),
+			docentes: doc.trim(),
 			clases: []
 		};
 
@@ -112,8 +112,7 @@ function parseMateria(texto) {
 				tipo = tipo + " " + data[k];
 			}
 			cur.clases.push({
-				texto: str,
-				tipo: tipo,
+				tipo: tipo.trim(),
 				dia: numDia(data[0]),
 				inicio: numHora(data[1]),
 				fin: numHora(data[2]),
@@ -125,6 +124,41 @@ function parseMateria(texto) {
 	}
 
 	return mat;
+}
+
+function parseCarreras(texto) {
+	const carreras = texto.split(", ");
+	if (carreras.length === 1 && carreras[0] === "Todas") {
+		return CarrerasFlags.TODAS;
+	}
+
+	if (carreras.length === 1 && carreras[0] === "") {
+		return CarrerasFlags.NINGUNA;
+	}
+
+	let carrera = CarrerasFlags.NINGUNA;
+	for (let c of carreras) {
+		if (c === "Civil") carrera = carrera | CarrerasFlags.CIVIL;
+		else if (c === "Industrial") carrera = carrera | CarrerasFlags.INDUSTRIAL;
+		else if (c === "Naval") carrera = carrera | CarrerasFlags.NAVAL;
+		else if (c === "Agrim") carrera = carrera | CarrerasFlags.AGRIM;
+		else if (c === "Mecánica") carrera = carrera | CarrerasFlags.MECANICA
+		else if (c === "Electricista") carrera = carrera | CarrerasFlags.ELECTRICISTA;
+		else if (c === "Electrónica") carrera = carrera | CarrerasFlags.ELECTRONICA;
+		else if (c === "Química") carrera = carrera | CarrerasFlags.QUIMICA;
+		else if (c === "Sistemas") carrera = carrera | CarrerasFlags.SISTEMAS;
+		else if (c === "Informática") carrera = carrera | CarrerasFlags.INFORMATICA;
+		else if (c === "Alimentos") carrera = carrera | CarrerasFlags.ALIMENTOS;
+		else if (c === "Ing. Agrim") carrera = carrera | CarrerasFlags.INGAGRIM;
+		else if (c === "Tecnicatura Naval") carrera = carrera | CarrerasFlags.TECNAVAL;
+		else if (c === "Petróleo") carrera = carrera | CarrerasFlags.PETROLEO;
+		else {
+			console.error("Carrera inválida: \"" + c + "\"");
+			process.exit(1);
+		}
+	}
+
+	return carrera;
 }
 
 function numDia(str){
@@ -149,8 +183,27 @@ function numHora(str){
 	var s = str.split(":");
 	var x = (Number(s[0]) - 7)*2;
 	if(s[1] == "30") x++;
-	return x;	
+	return x;
 }
+
+var CarrerasFlags = {
+	NINGUNA: 0,
+	CIVIL: 1,
+	INDUSTRIAL: 2,
+	NAVAL: 4,
+	AGRIM: 8,
+	MECANICA: 16,
+	ELECTRICISTA: 32,
+	ELECTRONICA: 64,
+	QUIMICA: 128,
+	SISTEMAS: 256,
+	INFORMATICA: 512,
+	ALIMENTOS: 1024,
+	INGAGRIM: 2048,
+	TECNAVAL: 8192,
+	PETROLEO: 16384,
+	TODAS: 16384 - 1
+};
 
 let i = 0;
 var colors = ["#FF5E5E", "#FF8F40", "#FFF45E" , "#94FF52" , "#7CD9D4", "#A876F5", "#FFA1F2" , "#BF6E45", "#3ABA7A", "#275BCC", "#82F5B4", "#B1B8C4", "#BA3A7A"];

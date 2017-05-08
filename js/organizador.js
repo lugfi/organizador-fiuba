@@ -10,7 +10,7 @@
 
 
 	function materiaFromId(id){
-		if(allCheckFalse()==1){
+		if(ningunaCarreraSeleccionada()==1){
 			escribirMensaje("Tenes que elegir alguna carrera",1);
 			return;
 		}
@@ -107,7 +107,7 @@
 		document.getElementById("listaInfo").innerHTML = "";
 		var idCurso = 0;
 		for (var i = 0; i < aMaterias.length; i++) {
-			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre.substr(0,55) + "</che> <input onchange=\"changeMatColor(" + i + ")\" value=\"" + aMaterias[i].color + "\" id=\"matColor" + i + "\" type=\"color\" /> <br> <b><a style=\"font-color:blue\" onclick=\"editarMateria(" + i + ");\">Editar</a> - <a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a> - <a style=\"font-color:blue\" onclick=\"forzarMateria(" + i + ");\">" + textIfTrue(aMaterias[i].forzar,"<font color=red>") + noIfTrue(aMaterias[i].forzar) + " Forzar Materia" + textIfTrue(aMaterias[i].forzar,"</font>") + "</a></b> <br>";
+			document.getElementById("listaInfo").innerHTML += "<input type=\"checkbox\" style=\"background-color:rgb(12,102,144);\" id=\"check" + i + "\" " + checkedIfTrue(aMaterias[i].sel == 1) + " onclick=\"clicked(" + i + ",0,0);\"><che onclick=\"mClicked(" + i + ")\">" + aMaterias[i].codigo + " - " + aMaterias[i].nombre.substr(0,55) + "</che> <input onchange=\"changeMatColor(" + i + ")\" value=\"" + aMaterias[i].color + "\" id=\"matColor" + i + "\" type=\"color\" /> <br> <b><a style=\"font-color:blue\" onclick=\"clicked(" + i + ",0,1);\">Borrar</a> - <a style=\"font-color:blue\" onclick=\"forzarMateria(" + i + ");\">" + textIfTrue(aMaterias[i].forzar,"<font color=red>") + noIfTrue(aMaterias[i].forzar) + " Forzar Materia" + textIfTrue(aMaterias[i].forzar,"</font>") + "</a></b> <br>";
 			if(aMaterias[i].expanded == 0) continue;
 			for (var j = 0; j < aMaterias[i].cursos.length; j++) {
 				document.getElementById("listaInfo").innerHTML += "<input  " + checkedIfTrue(aMaterias[i].cursoSel == j+1) + " type=\"radio\" name=\"materia" + i + "\" id=\"rad" + idCurso + "\" onclick=\"clicked(" + i + "," + (j+1) + ",0);\"><label for=\"rad" + idCurso + "\">" + aMaterias[i].cursos[j].docentes + "</label> - <a style=\"font-color:blue\" onclick=\"forzarCursoMateria(" + i + "," + (j+1) + ");\"><b>" + textIfTrue(aMaterias[i].cursoForzado.indexOf(j+1) != -1,"<font color=red>") + noIfTrue(aMaterias[i].cursoForzado.indexOf(j+1) != -1) + " Forzar Curso" + textIfTrue(aMaterias[i].cursoForzado.indexOf(j+1) != -1,"</font>") + "</b></a><br>";
@@ -116,39 +116,11 @@
 		}
 		
 	}
-	
-	function editarMateria(i){
-		if(aMaterias[i].texto == "No editable"){
-			escribirMensaje("Los horarios extracurriculares no se pueden editar",1);
-			return;
-		}else{
-			editMateriaIndex = i;
-			document.getElementById("editMatText").value = aMaterias[i].texto;
-			document.getElementById('editMatTab').style.visibility = 'visible';
-		}
-	}
-	
-	function editMatAceptar(){
-		var mat = materiaFromTextSinValidar(document.getElementById("editMatText").value);
-		if(mat == -1 || mat == 0){
-			escribirMensaje("Error al leer materia",1);
-			return;
-		}
-		mat.nombre += "(editada)";
-		mat.texto = document.getElementById("editMatText").value;
-		aMaterias[editMateriaIndex] = mat;
-		
-		document.getElementById('editMatTab').style.visibility = 'hidden';
-		escribirMensaje("Materia editada",0);
-		
-		llenarLista();
-	}
-	
+
 	function primerDocente(str){
 		doc = str.split(" - ");
 		str = doc[0].concat(" - " + doc[1]);
 		return str;
-	
 	}
 	
 	function mClicked(i){
@@ -233,11 +205,9 @@
 						text.textContent = lines[k] ;
 						document.getElementById("canvas").appendChild(text);
 					}
-					var lines = c[j].texto.split(" ");
-					//lines[0] = lines[0].concat(" - " + lines[1]);
-					lines[0] = c[j].tipo;
-					lines[1] = c[j].sede + " " + c[j].aula;
-					for(var l=0;l < 2;l++){
+
+					var lines = [c[j].tipo, c[j].sede + " " + c[j].aula];
+					for(var l = 0; l < lines.length; l++){
 						var text2 = document.createElementNS(svgNS,"text");
 						text2.setAttributeNS(null,"text-anchor","middle");
 						text2.setAttributeNS(null,"x",textX   + "%");
@@ -410,60 +380,7 @@
 	function color(i){
 		return colors[i%colors.length];
 	}
-	
-	function validarCurso(str){
-		var valido = 0;
-		while(str.indexOf(" ")!=-1) str = str.replace(" ","");
-		str = str.replace("\n","");
-		var carreras = str.split(",");
-		for(var i=0;i<carreras.length;i++){
-			//alert("|" + carreras[i] + "|");
-			switch(carreras[i]){
-				case "Civil":
-					if(document.getElementById("car1").checked == true) valido = 1;
-				break;
-				case "Industrial":
-					if(document.getElementById("car2").checked == true) valido = 1;
-				break;
-				case "Naval":
-					if(document.getElementById("car3").checked == true) valido = 1;
-				break;
-				case "Agrim":
-					if(document.getElementById("car4").checked == true) valido = 1;
-				break;
-				case "Mecánica":
-					if(document.getElementById("car5").checked == true) valido = 1;
-				break;
-				case "Electricista":
-					if(document.getElementById("car6").checked == true) valido = 1;
-				break;
-				case "Electrónica":
-					if(document.getElementById("car7").checked == true) valido = 1;
-				break;
-				case "Química":
-					if(document.getElementById("car8").checked == true) valido = 1;
-				break;
-				case "Sistemas":
-					if(document.getElementById("car9").checked == true) valido = 1;
-				break;
-				case "Informática":
-					if(document.getElementById("car10").checked == true) valido = 1;
-				break;
-				case "Alimentos":
-					if(document.getElementById("car11").checked == true) valido = 1;
-				break;
-				case "Ing.Agrim":
-					if(document.getElementById("car12").checked == true) valido = 1;
-				break;
-				case "Todas":
-					valido = 1;
-				break;			
-			}
-		
-		}		
-		return valido;	
-	}
-	
+
 	function escribirMensaje(str,alert){
 		if(alert==1){
 			document.getElementById("msg").innerHTML = "<msgAlert>*" + str + "</msgAlert>";
@@ -484,12 +401,11 @@
 	}
 	
 	function checkAll(){
-		var i;
 		var b = 0;
-		for(i=1;i<13;i++){
+		for (var i = 1; i < 13; i++) {
 			if(document.getElementById("car" + i).checked == false) b  = 1;
 		}
-		if(b == 1){
+		if (b == 1) {
 			document.getElementById("car1").checked = true;
 			document.getElementById("car2").checked = true;
 			document.getElementById("car3").checked = true;
@@ -502,7 +418,10 @@
 			document.getElementById("car10").checked = true;
 			document.getElementById("car11").checked = true;
 			document.getElementById("car12").checked = true;
-		}else{
+			document.getElementById("car13").checked = true;
+			document.getElementById("car14").checked = true;
+		}
+		else {
 			document.getElementById("car1").checked = false;
 			document.getElementById("car2").checked = false;
 			document.getElementById("car3").checked = false;
@@ -515,25 +434,13 @@
 			document.getElementById("car10").checked = false;
 			document.getElementById("car11").checked = false;
 			document.getElementById("car12").checked = false;
-		
+			document.getElementById("car13").checked = false;
+			document.getElementById("car14").checked = false;
 		}
-	
 	}
-	
-	function allCheckFalse(){
-		var b = 1;
-		for(var i=1;i<13;i++){
-			if(document.getElementById("car" + i).checked == true) b  = 0;
-		}
-		return b;
-	}
-	
-	function siTodasCarrerasCheck(){
-		var b = 1;
-		for(var i=1;i<13;i++){
-			if(document.getElementById("car" + i).checked == false) b  = 0;
-		}
-		return b;
+
+	function ningunaCarreraSeleccionada(){
+		return $("#buscar-materia-content input[type=checkbox]:checked").length === 0;
 	}
 	
 	function descargarHorarios(){
@@ -708,7 +615,7 @@
  		str = document.getElementById("buscar").value;
 		str = toUpperSinTilde(str);
 		
-		if(allCheckFalse() == 1){
+		if(ningunaCarreraSeleccionada() == 1){
 			document.getElementById("buscadas").innerHTML = "Tenes que elegir alguna carrera";
 			return;
 		}
@@ -718,24 +625,28 @@
 		var html = "";
 		
 		for(var i = 0;i<aDatos.length;i++){
-			if(toUpperSinTilde(aDatos[i][1]).indexOf(str) != -1 || toUpperSinTilde(aDatos[i][2]).indexOf(str) != -1){
-			
-				if(aDatos[i][3].texto.indexOf("Todas") == -1){
+			if(toUpperSinTilde(aDatos[i][1]).indexOf(str) != -1 || toUpperSinTilde(aDatos[i][2]).indexOf(str) != -1) {
+				var materia = aDatos[i][3];
+				// Podría haber algún docente con una carrera distinta? Eso parecen indicar los datos.
+				var carreras = materia.cursos[0].carreras;
+				if((carreras & CarrerasFlags.TODAS) == CarrerasFlags.TODAS) {
 					var filtrar = 1;
-					if(document.getElementById("car1").checked == true && aDatos[i][3].texto.indexOf("Civil") != -1) filtrar = 0;
-					if(document.getElementById("car2").checked == true && aDatos[i][3].texto.indexOf("Industrial") != -1) filtrar = 0;
-					if(document.getElementById("car3").checked == true && aDatos[i][3].texto.indexOf("Naval") != -1) filtrar = 0;
-					if(document.getElementById("car4").checked == true && aDatos[i][3].texto.indexOf("Agrim") != -1) filtrar = 0;
-					if(document.getElementById("car5").checked == true && aDatos[i][3].texto.indexOf("Mecánica") != -1) filtrar = 0
-					if(document.getElementById("car6").checked == true && aDatos[i][3].texto.indexOf("Electricista") != -1) filtrar = 0;
-					if(document.getElementById("car7").checked == true && aDatos[i][3].texto.indexOf("Electrónica") != -1) filtrar = 0;
-					if(document.getElementById("car8").checked == true && aDatos[i][3].texto.indexOf("Química") != -1) filtrar = 0;
-					if(document.getElementById("car9").checked == true && aDatos[i][3].texto.indexOf("Sistemas") != -1) filtrar = 0;
-					if(document.getElementById("car10").checked == true && aDatos[i][3].texto.indexOf("Informática") != -1) filtrar = 0;
-					if(document.getElementById("car11").checked == true && aDatos[i][3].texto.indexOf("Alimentos") != -1) filtrar = 0;
-					if(document.getElementById("car12").checked == true && aDatos[i][3].texto.indexOf("Ing.Agrim") != -1) filtrar = 0;	
+					if(document.getElementById("car1").checked == true && ((carreras & CarrerasFlags.CIVIL) == CarrerasFlags.CIVIL)) filtrar = 0;
+					if(document.getElementById("car2").checked == true && ((carreras & CarrerasFlags.INDUSTRIAL) == CarrerasFlags.INDUSTRIAL)) filtrar = 0;
+					if(document.getElementById("car3").checked == true && ((carreras & CarrerasFlags.NAVAL) == CarrerasFlags.NAVAL)) filtrar = 0;
+					if(document.getElementById("car4").checked == true && ((carreras & CarrerasFlags.AGRIM) == CarrerasFlags.AGRIM)) filtrar = 0;
+					if(document.getElementById("car5").checked == true && ((carreras & CarrerasFlags.MECANICA) == CarrerasFlags.MECANICA)) filtrar = 0
+					if(document.getElementById("car6").checked == true && ((carreras & CarrerasFlags.ELECTRICISTA) == CarrerasFlags.ELECTRICISTA)) filtrar = 0;
+					if(document.getElementById("car7").checked == true && ((carreras & CarrerasFlags.ELECTRONICA) == CarrerasFlags.ELECTRONICA)) filtrar = 0;
+					if(document.getElementById("car8").checked == true && ((carreras & CarrerasFlags.QUIMICA) == CarrerasFlags.QUIMICA)) filtrar = 0;
+					if(document.getElementById("car9").checked == true && ((carreras & CarrerasFlags.SISTEMAS) == CarrerasFlags.SISTEMAS)) filtrar = 0;
+					if(document.getElementById("car10").checked == true && ((carreras & CarrerasFlags.INFORMATICA) == CarrerasFlags.INFORMATICA)) filtrar = 0;
+					if(document.getElementById("car11").checked == true && ((carreras & CarrerasFlags.ALIMENTOS) == CarrerasFlags.ALIMENTOS)) filtrar = 0;
+					if(document.getElementById("car12").checked == true && ((carreras & CarrerasFlags.INGAGRIM) == CarrerasFlags.INGAGRIM)) filtrar = 0;	
+					if(document.getElementById("car13").checked == true && ((carreras & CarrerasFlags.TECNAVAL) == CarrerasFlags.TECNAVAL)) filtrar = 0;	
+					if(document.getElementById("car14").checked == true && ((carreras & CarrerasFlags.PETROLEO) == CarrerasFlags.PETROLEO)) filtrar = 0;	
 					if(filtrar == 1) continue;
-				}			
+				}
 			
 				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a>";
 				for(var j=0;j < aMaterias.length;j++){
@@ -957,6 +868,25 @@
 		}).click();
 	});
 
+	var CarrerasFlags = {
+		NINGUNA: 0,
+		CIVIL: 1,
+		INDUSTRIAL: 2,
+		NAVAL: 4,
+		AGRIM: 8,
+		MECANICA: 16,
+		ELECTRICISTA: 32,
+		ELECTRONICA: 64,
+		QUIMICA: 128,
+		SISTEMAS: 256,
+		INFORMATICA: 512,
+		ALIMENTOS: 1024,
+		INGAGRIM: 2048,
+		TECNAVAL: 8192,
+		PETROLEO: 16384,
+		TODAS: 16384-1
+	};
+
 	var resizing = 0;
 
 	var expandible = 1;
@@ -979,8 +909,6 @@
 	
 	var cHSize = 0;
 	
-	var editMateriaIndex = 0;
-
 	var cuatriActual = "1Q2017";
 	
 	var cuatriDatos = cuatriActual;
