@@ -19,11 +19,7 @@ function parse(dir) {
 					}
 
 					let linea = stringDatos[i].split(';');
-					aDatos[i] = new Array(4);
-					aDatos[i][0] = linea[0];
-					aDatos[i][1] = linea[2].trim();
-					aDatos[i][2] = linea[3];
-					aDatos[i][3] = parseMateria(linea[4]);
+					aDatos[i] = parseMateria(linea[4]);
 				}
 				fs.writeFile(fileDatos.slice(0, -4) + ".json", JSON.stringify(aDatos, null, 4));
 			});

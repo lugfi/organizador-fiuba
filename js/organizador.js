@@ -15,7 +15,7 @@
 			return;
 		}
 
-		var materia = aDatos[id][3];
+		var materia = aDatos[id];
 
 		if(materia === undefined) {
 			return;
@@ -40,18 +40,10 @@
 		
 		var str = document.getElementById("buscadas").innerHTML;
 		
-		var pos = str.indexOf(aDatos[id][2] + " - " + aDatos[id][1] + "</a>");
+		var pos = str.indexOf(aDatos[id].codigo + " - " + aDatos[id].nombre + "</a>");
 		var pos2 = str.indexOf("</a>",pos);
 		str = str.substring(0,pos2+4) + " - <font color=darkgreen><b>Ya agregada</b></font>" + str.substring(pos2+4);
-		
 		document.getElementById("buscadas").innerHTML = str;
-		
-		
-				/*html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a>";
-				for(var j=0;j < aMaterias.length;j++){
-					if(aDatos[i][2] == aMaterias[j].codigo) html += " - <font color=darkgreen><b>Ya agregada</b></font>";
-				}
-				html += "<br>";*/
 	}
 	
 	function checkedIfTrue(b){
@@ -625,8 +617,8 @@
 		var html = "";
 		
 		for(var i = 0;i<aDatos.length;i++){
-			if(toUpperSinTilde(aDatos[i][1]).indexOf(str) != -1 || toUpperSinTilde(aDatos[i][2]).indexOf(str) != -1) {
-				var materia = aDatos[i][3];
+			if(toUpperSinTilde(aDatos[i].nombre).indexOf(str) != -1 || toUpperSinTilde(aDatos[i].codigo).indexOf(str) != -1) {
+				var materia = aDatos[i];
 				// Podría haber algún docente con una carrera distinta? Eso parecen indicar los datos.
 				var carreras = materia.cursos[0].carreras;
 				if((carreras & CarrerasFlags.TODAS) == CarrerasFlags.TODAS) {
@@ -648,9 +640,9 @@
 					if(filtrar == 1) continue;
 				}
 			
-				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i][2] + " - " + aDatos[i][1] + "</a>";
+				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i].codigo + " - " + aDatos[i].nombre + "</a>";
 				for(var j=0;j < aMaterias.length;j++){
-					if(aDatos[i][2] == aMaterias[j].codigo) html += " - <font color=darkgreen><b>Ya agregada</b></font>";
+					if(aDatos[i].codigo == aMaterias[j].nombre) html += " - <font color=darkgreen><b>Ya agregada</b></font>";
 				}
 				html += "<br>";
  				encontradas++;
