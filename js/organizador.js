@@ -10,29 +10,13 @@ function buscarPrecargadas() {
 
 
 function materiaFromId(id) {
-	if (ningunaCarreraSeleccionada() == 1) {
-		escribirMensaje("Tenes que elegir alguna carrera", 1);
-		return;
-	}
-
 	var materia = globalDatosMaterias[id];
-
-	if (materia === undefined) {
-		return;
-	}
-
-	if (materia === 0) {
-		escribirMensaje("No hay cursos para las carreras elegidas", 1);
-		return;
-	}
-	else {
-		indexCombinacion = 0;
-		aCombinaciones.length = 0;
-		escribirMensaje("Materia agregada", 0);
-		document.getElementById("combMinMat").value = aMaterias.length + 1;
-		document.getElementById("subIzquierda").style.visibility = "hidden";
-		document.getElementById("subDerecha").style.visibility = "hidden";
-	}
+	indexCombinacion = 0;
+	aCombinaciones.length = 0;
+	escribirMensaje("Materia agregada", 0);
+	document.getElementById("combMinMat").value = aMaterias.length + 1;
+	document.getElementById("subIzquierda").style.visibility = "hidden";
+	document.getElementById("subDerecha").style.visibility = "hidden";
 
 	aMaterias.push(materia);
 
@@ -391,45 +375,6 @@ function clickBuscar() {
 	}
 }
 
-function checkAll() {
-	var b = 0;
-	for (var i = 1; i < 13; i++) {
-		if (document.getElementById("car" + i).checked == false) b = 1;
-	}
-	if (b == 1) {
-		document.getElementById("car1").checked = true;
-		document.getElementById("car2").checked = true;
-		document.getElementById("car3").checked = true;
-		document.getElementById("car4").checked = true;
-		document.getElementById("car5").checked = true;
-		document.getElementById("car6").checked = true;
-		document.getElementById("car7").checked = true;
-		document.getElementById("car8").checked = true;
-		document.getElementById("car9").checked = true;
-		document.getElementById("car10").checked = true;
-		document.getElementById("car11").checked = true;
-		document.getElementById("car12").checked = true;
-		document.getElementById("car13").checked = true;
-		document.getElementById("car14").checked = true;
-	}
-	else {
-		document.getElementById("car1").checked = false;
-		document.getElementById("car2").checked = false;
-		document.getElementById("car3").checked = false;
-		document.getElementById("car4").checked = false;
-		document.getElementById("car5").checked = false;
-		document.getElementById("car6").checked = false;
-		document.getElementById("car7").checked = false;
-		document.getElementById("car8").checked = false;
-		document.getElementById("car9").checked = false;
-		document.getElementById("car10").checked = false;
-		document.getElementById("car11").checked = false;
-		document.getElementById("car12").checked = false;
-		document.getElementById("car13").checked = false;
-		document.getElementById("car14").checked = false;
-	}
-}
-
 function ningunaCarreraSeleccionada() {
 	return $("#buscar-materia-content input[type=checkbox]:checked").length === 0;
 }
@@ -602,25 +547,26 @@ function toUpperSinTilde(str) {
 }
 
 function timerBusqueda() {
-
-	str = document.getElementById("buscar").value;
+	var str = document.getElementById("buscar").value;
 	str = toUpperSinTilde(str);
 
-	if (ningunaCarreraSeleccionada() == 1) {
-		document.getElementById("buscadas").innerHTML = "Tenes que elegir alguna carrera";
-		return;
-	}
-
-	// Podría haber algún docente con una carrera distinta? Eso parecen indicar los datos.
 	var mats = [];
-	for (var i = 0; i < globalDatosMaterias.length; i++) {
-		for (var j = 0; j < globalDatosCarreras.length; j++) {
-			if (document.getElementById("car" + (j + 1)).checked && globalDatosCarreras[j].materias.indexOf(i) > -1) {
-				mats.push(i);
-			}
+	if (ningunaCarreraSeleccionada()) {
+		for (var i = 0; i < globalDatosMaterias.length; i++) {
+			mats.push(i);
 		}
 	}
-	mats = uniqueArray(mats);
+	else {
+		// Podría haber algún docente con una carrera distinta? Eso parecen indicar los datos.
+		for (var i = 0; i < globalDatosMaterias.length; i++) {
+			for (var j = 0; j < globalDatosCarreras.length; j++) {
+				if (document.getElementById("car" + (j + 1)).checked && globalDatosCarreras[j].materias.indexOf(i) > -1) {
+					mats.push(i);
+				}
+			}
+		}
+		mats = uniqueArray(mats);
+	}
 
 	var html = "";
 	var encontradas = 0;
@@ -897,6 +843,10 @@ $(document).ready(function () {
 		clearTopCanvas();
 		dibujarRectEnColRow(mouseColInCanvas, mouseRowInCanvas, "topCanvas", "selRect");
 		getCellDescription();
+	});
+
+	$("#buscar-materia-content input[type=checkbox]").change(function () {
+		buscarPrecargadas();
 	});
 
 	$("#but5").click(function () {
