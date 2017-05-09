@@ -632,8 +632,8 @@ function cHAceptar() {
 		nombre: desc,
 		cursos: [],
 		// necesario para el frontend
-		sel: 0,
-		cursoSel: 0,
+		sel: 1,
+		cursoSel: 1,
 		expanded: 1,
 		forzar: 1,
 		cursoForzado: [],
@@ -675,6 +675,7 @@ function cHAceptar() {
 	mat.cursos.push(cur);
 	aMaterias.push(mat);
 	llenarLista();
+	dibujarCalendario();
 	escribirMensaje("Horario agregado", 0);
 	document.getElementById('cHTab').style.visibility = 'hidden';
 }
