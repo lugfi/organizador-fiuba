@@ -15,7 +15,7 @@
 			return;
 		}
 
-		var materia = aDatos[id];
+		var materia = globalDatosMaterias[id];
 
 		if(materia === undefined) {
 			return;
@@ -39,8 +39,7 @@
 		llenarLista();
 		
 		var str = document.getElementById("buscadas").innerHTML;
-		
-		var pos = str.indexOf(aDatos[id].codigo + " - " + aDatos[id].nombre + "</a>");
+		var pos = str.indexOf(materia.nombre + "</a>");
 		var pos2 = str.indexOf("</a>",pos);
 		str = str.substring(0,pos2+4) + " - <font color=darkgreen><b>Ya agregada</b></font>" + str.substring(pos2+4);
 		document.getElementById("buscadas").innerHTML = str;
@@ -612,46 +611,37 @@
 			return;
 		}
 		
-		var encontradas = 0;
-		
-		var html = "";
-		
-		for(var i = 0;i<aDatos.length;i++){
-			if(toUpperSinTilde(aDatos[i].nombre).indexOf(str) != -1 || toUpperSinTilde(aDatos[i].codigo).indexOf(str) != -1) {
-				var materia = aDatos[i];
-				// Podría haber algún docente con una carrera distinta? Eso parecen indicar los datos.
-				var carreras = materia.cursos[0].carreras;
-				if((carreras & CarrerasFlags.TODAS) == CarrerasFlags.TODAS) {
-					var filtrar = 1;
-					if(document.getElementById("car1").checked == true && ((carreras & CarrerasFlags.CIVIL) == CarrerasFlags.CIVIL)) filtrar = 0;
-					if(document.getElementById("car2").checked == true && ((carreras & CarrerasFlags.INDUSTRIAL) == CarrerasFlags.INDUSTRIAL)) filtrar = 0;
-					if(document.getElementById("car3").checked == true && ((carreras & CarrerasFlags.NAVAL) == CarrerasFlags.NAVAL)) filtrar = 0;
-					if(document.getElementById("car4").checked == true && ((carreras & CarrerasFlags.AGRIM) == CarrerasFlags.AGRIM)) filtrar = 0;
-					if(document.getElementById("car5").checked == true && ((carreras & CarrerasFlags.MECANICA) == CarrerasFlags.MECANICA)) filtrar = 0
-					if(document.getElementById("car6").checked == true && ((carreras & CarrerasFlags.ELECTRICISTA) == CarrerasFlags.ELECTRICISTA)) filtrar = 0;
-					if(document.getElementById("car7").checked == true && ((carreras & CarrerasFlags.ELECTRONICA) == CarrerasFlags.ELECTRONICA)) filtrar = 0;
-					if(document.getElementById("car8").checked == true && ((carreras & CarrerasFlags.QUIMICA) == CarrerasFlags.QUIMICA)) filtrar = 0;
-					if(document.getElementById("car9").checked == true && ((carreras & CarrerasFlags.SISTEMAS) == CarrerasFlags.SISTEMAS)) filtrar = 0;
-					if(document.getElementById("car10").checked == true && ((carreras & CarrerasFlags.INFORMATICA) == CarrerasFlags.INFORMATICA)) filtrar = 0;
-					if(document.getElementById("car11").checked == true && ((carreras & CarrerasFlags.ALIMENTOS) == CarrerasFlags.ALIMENTOS)) filtrar = 0;
-					if(document.getElementById("car12").checked == true && ((carreras & CarrerasFlags.INGAGRIM) == CarrerasFlags.INGAGRIM)) filtrar = 0;	
-					if(document.getElementById("car13").checked == true && ((carreras & CarrerasFlags.TECNAVAL) == CarrerasFlags.TECNAVAL)) filtrar = 0;	
-					if(document.getElementById("car14").checked == true && ((carreras & CarrerasFlags.PETROLEO) == CarrerasFlags.PETROLEO)) filtrar = 0;	
-					if(filtrar == 1) continue;
+		// Podría haber algún docente con una carrera distinta? Eso parecen indicar los datos.
+		var mats = [];
+		for (var i = 0; i < globalDatosMaterias.length; i++) {
+			for (var j = 0; j < globalDatosCarreras.length; j++) {
+				if (document.getElementById("car" + (j + 1)).checked && globalDatosCarreras[j].materias.indexOf(i) > -1) {
+					mats.push(i);
 				}
-			
-				html += "<a onclick=\"materiaFromId('" + i + "');\" >" + aDatos[i].codigo + " - " + aDatos[i].nombre + "</a>";
-				for(var j=0;j < aMaterias.length;j++){
-					if(aDatos[i].codigo == aMaterias[j].nombre) html += " - <font color=darkgreen><b>Ya agregada</b></font>";
-				}
-				html += "<br>";
- 				encontradas++;
-				if(encontradas > 21) break;
 			}
 		}
-		
+		mats = uniqueArray(mats);
+
+		var html = "";
+		var encontradas = 0;
+		for (var i = 0; i < mats.length; i++) {
+			var ix = mats[i];
+			var materia = globalDatosMaterias[ix];
+			if(toUpperSinTilde(materia.nombre).indexOf(str) > -1 || toUpperSinTilde(materia.codigo).indexOf(str) > -1) {
+				html += "<a onclick=\"materiaFromId('" + ix + "');\" >" + materia.codigo + " - " + materia.nombre + "</a>";
+				for (var j = 0; j < aMaterias.length; j++) {
+					if (materia.codigo == aMaterias[j].codigo) {
+						html += " - <font color=darkgreen><b>Ya agregada</b></font>";
+					}
+				}
+				html += "<br>";
+				if (++encontradas > 20) {
+					break;
+				}
+			}
+		}
+
 		document.getElementById("buscadas").innerHTML = html;
-		
 	}
 	
 	function cHCrearHorario(){
@@ -743,7 +733,8 @@
 	function cargarHorarios(cuatriDatos, cuatriDesc) {
 		$.getJSON("Horarios_" + cuatriDatos + ".json", function(data) {
 			// global
-			aDatos = data;
+			globalDatosMaterias = data.materias;
+			globalDatosCarreras = data.carreras;
 			datosCargados = 1;
 			// global
 
@@ -752,7 +743,19 @@
 			document.getElementById('but5_sub').style.visibility = 'hidden';
 		});
 	}
-	
+
+	function uniqueArray(ar) {
+		var j = {};
+
+		ar.forEach( function(v) {
+			j[v+ '::' + typeof v] = v;
+		});
+
+		return Object.keys(j).map(function(v){
+			return j[v];
+		});
+	}
+
  	$(document).ready(function() {
 
       $("#menu").mouseleave(function(){
@@ -860,25 +863,6 @@
 		}).click();
 	});
 
-	var CarrerasFlags = {
-		NINGUNA: 0,
-		CIVIL: 1,
-		INDUSTRIAL: 2,
-		NAVAL: 4,
-		AGRIM: 8,
-		MECANICA: 16,
-		ELECTRICISTA: 32,
-		ELECTRONICA: 64,
-		QUIMICA: 128,
-		SISTEMAS: 256,
-		INFORMATICA: 512,
-		ALIMENTOS: 1024,
-		INGAGRIM: 2048,
-		TECNAVAL: 8192,
-		PETROLEO: 16384,
-		TODAS: 16384-1
-	};
-
 	var resizing = 0;
 
 	var expandible = 1;
@@ -907,7 +891,9 @@
 	
 	var stringDatos;
 	
-	var aDatos;
+	var globalDatosMaterias;
+
+	var globalDatosCarreras;
 	
 	var datosCargados = 0;
 	

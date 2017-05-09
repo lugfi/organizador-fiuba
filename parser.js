@@ -6,7 +6,7 @@ function parse(dir) {
 		filenames.forEach(function (fileDatos) {
 			fs.readFile(path.resolve(dir, fileDatos), 'utf-8', function (err, result) {
 				let stringDatos = result.split("\"\n");
-				let aDatos = new Array(stringDatos.length - 1);
+				let datosMaterias = new Array(stringDatos.length - 1);
 				let cuatriDatos = stringDatos[1].split(';')[1];
 				while (cuatriDatos.indexOf('"') != -1) {
 					cuatriDatos = cuatriDatos.replace('"', '');
@@ -19,9 +19,33 @@ function parse(dir) {
 					}
 
 					let linea = stringDatos[i].split(';');
-					aDatos[i] = parseMateria(linea[4]);
+					datosMaterias[i] = parseMateria(linea[4]);
 				}
-				fs.writeFile(fileDatos.slice(0, -4) + ".json", JSON.stringify(aDatos, null, 4));
+
+				let datosCarreras = JSON.parse(JSON.stringify(ConstDatosCarreras));
+
+				for (let i = 0; i < datosMaterias.length; i++) {
+					const materia = datosMaterias[i];
+					for (let carr of datosCarreras) {
+						if ((materia.cursos[0].carreras & carr.flag) == carr.flag) {
+							carr.materias.push(i);
+						}
+					}
+
+					for (let curso of materia.cursos) {
+						delete curso.carreras;
+					}
+				}
+
+				for (let carr of datosCarreras) {
+					delete carr.flag;
+				}
+
+				var response = {
+					carreras: datosCarreras,
+					materias: datosMaterias
+				};
+				fs.writeFile(fileDatos.slice(0, -4) + ".json", JSON.stringify(response, null, 4));
 			});
 		});
 	});
@@ -124,31 +148,28 @@ function parseMateria(texto) {
 
 function parseCarreras(texto) {
 	const carreras = texto.split(", ");
-	if (carreras.length === 1 && carreras[0] === "Todas") {
-		return CarrerasFlags.TODAS;
-	}
-
-	if (carreras.length === 1 && carreras[0] === "") {
-		return CarrerasFlags.NINGUNA;
-	}
-
 	let carrera = CarrerasFlags.NINGUNA;
+	if (carreras.length === 1 && carreras[0] === "") {
+		return carrera;
+	}
+
+	if (carreras.length === 1 && carreras[0] === "Todas") {
+		for (let carr of ConstDatosCarreras) {
+			carrera = carrera | carr.flag;
+		}
+		return carrera;
+	}
+
 	for (let c of carreras) {
-		if (c === "Civil") carrera = carrera | CarrerasFlags.CIVIL;
-		else if (c === "Industrial") carrera = carrera | CarrerasFlags.INDUSTRIAL;
-		else if (c === "Naval") carrera = carrera | CarrerasFlags.NAVAL;
-		else if (c === "Agrim") carrera = carrera | CarrerasFlags.AGRIM;
-		else if (c === "Mecánica") carrera = carrera | CarrerasFlags.MECANICA
-		else if (c === "Electricista") carrera = carrera | CarrerasFlags.ELECTRICISTA;
-		else if (c === "Electrónica") carrera = carrera | CarrerasFlags.ELECTRONICA;
-		else if (c === "Química") carrera = carrera | CarrerasFlags.QUIMICA;
-		else if (c === "Sistemas") carrera = carrera | CarrerasFlags.SISTEMAS;
-		else if (c === "Informática") carrera = carrera | CarrerasFlags.INFORMATICA;
-		else if (c === "Alimentos") carrera = carrera | CarrerasFlags.ALIMENTOS;
-		else if (c === "Ing. Agrim") carrera = carrera | CarrerasFlags.INGAGRIM;
-		else if (c === "Tecnicatura Naval") carrera = carrera | CarrerasFlags.TECNAVAL;
-		else if (c === "Petróleo") carrera = carrera | CarrerasFlags.PETROLEO;
-		else {
+		let ok = false;
+		for (let carr of ConstDatosCarreras) {
+			if (c === carr.nombre) {
+				carrera = carrera | carr.flag;
+				ok = true;
+			}
+		}
+
+		if (!ok) {
 			console.error("Carrera inválida: \"" + c + "\"");
 			process.exit(1);
 		}
@@ -196,10 +217,82 @@ var CarrerasFlags = {
 	INFORMATICA: 512,
 	ALIMENTOS: 1024,
 	INGAGRIM: 2048,
-	TECNAVAL: 8192,
-	PETROLEO: 16384,
-	TODAS: 16384 - 1
+	TECNAVAL: 4096,
+	PETROLEO: 8192
 };
+
+const ConstDatosCarreras = [
+	{
+		nombre: "Civil",
+		flag: CarrerasFlags.CIVIL,
+		materias: []
+	},
+	{
+		nombre: "Industrial",
+		flag: CarrerasFlags.INDUSTRIAL,
+		materias: []
+	},
+	{
+		nombre: "Naval",
+		flag: CarrerasFlags.NAVAL,
+		materias: []
+	},
+	{
+		nombre: "Agrim",
+		flag: CarrerasFlags.AGRIM,
+		materias: []
+	},
+	{
+		nombre: "Mecánica",
+		flag: CarrerasFlags.MECANIC,
+		materias: []
+	},
+	{
+		nombre: "Electricista",
+		flag: CarrerasFlags.ELECTRICISTA,
+		materias: []
+	},
+	{
+		nombre: "Electrónica",
+		flag: CarrerasFlags.ELECTRONICA,
+		materias: []
+	},
+	{
+		nombre: "Química",
+		flag: CarrerasFlags.QUIMICA,
+		materias: []
+	},
+	{
+		nombre: "Sistemas",
+		flag: CarrerasFlags.SISTEMAS,
+		materias: []
+	},
+	{
+		nombre: "Informática",
+		flag: CarrerasFlags.INFORMATICA,
+		materias: []
+	},
+	{
+		nombre: "Alimentos",
+		flag: CarrerasFlags.ALIMENTOS,
+		materias: []
+	},
+	{
+		nombre: "Ing. Agrim",
+		flag: CarrerasFlags.INGAGRIM,
+		materias: []
+	},
+	{
+		nombre: "Tecnicatura Naval",
+		flag: CarrerasFlags.TECNAVAL,
+		materias: []
+	},
+	{
+		nombre: "Petróleo",
+		flag: CarrerasFlags.PETROLEO,
+		materias: []
+	}
+];
 
 let i = 0;
 var colors = ["#FF5E5E", "#FF8F40", "#FFF45E" , "#94FF52" , "#7CD9D4", "#A876F5", "#FFA1F2" , "#BF6E45", "#3ABA7A", "#275BCC", "#82F5B4", "#B1B8C4", "#BA3A7A"];
