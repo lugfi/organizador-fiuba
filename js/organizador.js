@@ -530,6 +530,26 @@ function siguienteComb(way) {
 
 }
 
+function guardarEstado() {
+	var str = JSON.stringify(aMaterias);
+	var a = window.document.createElement('a');
+	a.href = window.URL.createObjectURL(new Blob([str], { type: 'text' }));
+	a.download = 'organizadorfiuba.json';
+	document.body.appendChild(a)
+	a.click();
+	document.body.removeChild(a)
+}
+
+function cargarEstado(event) {
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		aMaterias = JSON.parse(e.target.result);
+		llenarLista();
+		dibujarCalendario();
+	}
+	reader.readAsText(event.target.files[0]);
+}
+
 function timerMensaje() {
 	document.getElementById('msgBox').style.visibility = 'hidden';
 	clearTimeout(timerMsj);
