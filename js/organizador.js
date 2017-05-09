@@ -643,6 +643,75 @@
 
 		document.getElementById("buscadas").innerHTML = html;
 	}
+
+	function cHAceptar() {
+		var desc = document.getElementById("cHDesc").value;
+
+		if (desc == "") {
+			escribirMensaje("Tenes que agregar una descripción",1);
+			return;
+		}
+		
+		for (var i = 0; i < cHSize; i++) {
+			var inicio = Number(document.getElementById("cHInicio" + i).value);
+			var fin = Number(document.getElementById("cHFin" + i).value);
+			if (fin <= inicio) {
+				escribirMensaje("Error en el bloque " + (i+1),1);
+				return;
+			}
+		}
+
+		var mat = {
+			codigo: "EXTC",
+			nombre: desc,
+			cursos: [],
+			// necesario para el frontend
+			sel: 0,
+			cursoSel: 0,
+			expanded: 1,
+			forzar: 1,
+			cursoForzado: [],
+			color: "#BA3A7A"
+		};
+		var cur = {
+			docentes: desc,
+			clases: []
+		};
+		
+		for(var i = 0; i < cHSize; i++) {
+			var dia = Number(document.getElementById("cHDia" + i).value);
+			var inicio = Number(document.getElementById("cHInicio" + i).value);
+			var fin = Number(document.getElementById("cHFin" + i).value);
+			if(dia === 6) {
+				for(var j = 0; j < 5; j++) {
+					cur.clases.push({
+						tipo: "Extracurricular",
+						dia: j,
+						inicio: inicio,
+						fin: fin,
+						sede: "",
+						aula: ""
+					});
+				}
+
+				continue;
+			}
+			cur.clases.push({
+				tipo: "Extracurricular",
+				dia: dia,
+				inicio: inicio,
+				fin: fin,
+				sede: "",
+				aula: ""
+			});
+		}
+		
+		mat.cursos.push(cur);
+		aMaterias.push(mat);
+		llenarLista();
+		escribirMensaje("Horario agregado",0);
+		document.getElementById('cHTab').style.visibility = 'hidden';
+	}
 	
 	function cHCrearHorario(){
 		document.getElementById('cHTab').style.visibility = 'visible';
