@@ -25,9 +25,7 @@
 
 <body>
 
-  <input type="file" class="hidden" id="fileinp" onchange="openFile(event)">
-
-  <input type="file" class="hidden" id="fileDatos" onchange="openFileDatos(event)">
+  <input type="file" class="hidden" id="fileinp" onchange="cargarEstado(event)">
 
   <svg id="site-background">
     <rect width="100%" height="100%" fill="rgb(45,45,45)" style="stroke-width:2px;stroke-color:rgb(9,153,201)" />
@@ -71,16 +69,17 @@
       <input type="checkbox" id="car1"> <label for="car1">Civil</label> -
       <input type="checkbox" id="car2"> <label for="car2">Industrial</label> -
       <input type="checkbox" id="car3"> <label for="car3">Naval</label> -
-      <input type="checkbox" id="car4"> <label for="car4">Agrimensura</label> -
-      <input type="checkbox" id="car5"> <label for="car5">Mecánica</label> <br>
+      <input type="checkbox" id="car4"> <label for="car4">Agrimensura</label> <br>
+      <input type="checkbox" id="car5"> <label for="car5">Mecánica</label> -
       <input type="checkbox" id="car6"> <label for="car6">Electricista</label> -
       <input type="checkbox" id="car7"> <label for="car7">Electrónica</label> -
-      <input type="checkbox" id="car8"> <label for="car8">Química</label> -
-      <input type="checkbox" id="car9"> <label for="car9">Sistemas</label> <br>
+      <input type="checkbox" id="car8"> <label for="car8">Química</label> <br>
+      <input type="checkbox" id="car9"> <label for="car9">Sistemas</label> -
       <input type="checkbox" id="car10"> <label for="car10">Informática</label> -
-      <input type="checkbox" id="car11"> <label for="car11">Alimentos</label> -
+      <input type="checkbox" id="car11"> <label for="car11">Alimentos</label> <br>
       <input type="checkbox" id="car12"> <label for="car12">Ing. Agrimensura</label> -
-      <a onclick="checkAll()">Todas</a><br>
+      <input type="checkbox" id="car13"> <label for="car13">Tecnicatura Naval</label> -
+      <input type="checkbox" id="car14"> <label for="car14">Petróleo</label>
       <input id="buscar" oninput="buscarPrecargadas();" onclick="clickBuscar();" value="Ingresá la materia que queres buscar">
       <div id="buscadas"></div>
     </div>
@@ -204,14 +203,6 @@
       <input type="submit" value="Cerrar" onclick="document.getElementById('cHTab').style.visibility = 'hidden';">
       <input type="submit" value="Aceptar" onclick="cHAceptar();">
     </div>
-  </div>
-
-  <div id="editMatTab">
-    <br>
-    <textarea id="editMatText" rows="20" cols="85"></textarea><br>
-    <input type="submit" value="Cerrar" onclick="document.getElementById('editMatTab').style.visibility = 'hidden';">
-    <input type="submit" value="Aceptar" onclick="editMatAceptar();"><br>
-    <i>*Modificar el formato lo menos posible.<br> Es importante no quitar saltos de línea, y respetar los espacios dentro de cada línea.</i>
   </div>
 
   <ul id="menu">
