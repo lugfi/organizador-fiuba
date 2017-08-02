@@ -14,11 +14,11 @@ Una vez en el [sitio](https://lugfi.github.io/organizador-fiuba/), automáticame
 
 # Datos
 
-- Los datos son leídos de archivos csv.
+- Los datos son leídos de archivos json.
 - Pueden encontrar archivos hasta el segundo cuatrimestre de 2014 en este repositorio.
-- Más allá de los datos por defecto, se pueden cargar otros archivos csv desde la interfaz web.
-    1. Descargar los archivos csv en la computadora
-    1. Cargar horarios desde el menú opciones del organizador
+- Además de los datos de todos los cursos provistos, se pueden descargar y cargar la combinación de horarios que hayas armado.
+    1. Para descargar debes seleccionar la opción "Descargar Estado" en el menú de opciones.
+    1. Para cargar debes seleccionar la opción "Cargar Estado" en el menú de opciones.
 
 # Colaborar
 
@@ -29,11 +29,16 @@ Una vez en el [sitio](https://lugfi.github.io/organizador-fiuba/), automáticame
 
 ### Programando
 
-1. Hacer un fork del repositorio
-1. Hacer las modificaciones necesarias en la rama `gh-pages`, la cual automáticamente levanta el [sitio](https://lugfi.github.io/organizador-fiuba/)
-1. Crear un pull request para integrar los cambios en este repositorio
+1. Hacer un fork del repositorio.
+1. Hacer las modificaciones necesarias en una rama de trabajo diferente a `master`.
+1. Crear un pull request. Las modificaciones van a ser revisadas por todos y si está todo bien se va a integrar los cambios en el repositorio.
 
-# Creditos
+# Créditos
 
 - [Franco Spada](https://github.com/francoSpada) es el autor original del organizador
 - [Martín Coll](https://github.com/tinchou) mantiene este repositorio y la versión web
+
+# Licencia
+El código fuente, entre ellos HTML, CSS, JavaScript, tiene licencia [GPL versión 3](https://www.gnu.org/licenses/gpl.html).
+
+El contenido adicional como los archivos que contienen los datos de los horarios (archivos json y txt), las imágenes u otro tipo de recurso tiene licencia [Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-nc-sa/4.0/).
