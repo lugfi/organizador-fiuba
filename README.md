@@ -29,7 +29,7 @@ Una vez en el [sitio](https://lugfi.github.io/organizador-fiuba/), automáticame
 
 ### Programando
 
-1. Hacer un fork del repositorio
+1. Hacer un fork del repositorio.
 1. Hacer las modificaciones necesarias en una rama de trabajo diferente a `master`.
 1. Crear un pull request. Las modificaciones van a ser revisadas por todos y si está todo bien se va a integrar los cambios en el repositorio.
 
@@ -39,6 +39,6 @@ Una vez en el [sitio](https://lugfi.github.io/organizador-fiuba/), automáticame
 - [Martín Coll](https://github.com/tinchou) mantiene este repositorio y la versión web
 
 # Licencia
-El código fuente, entre ellos HTML, CSS, JavaScript, tiene licencia [GPL versión 3](https://www.gnu.org/licenses/gpl.html)
+El código fuente, entre ellos HTML, CSS, JavaScript, tiene licencia [GPL versión 3](https://www.gnu.org/licenses/gpl.html).
 
 El contenido adicional como los archivos que contienen los datos de los horarios (archivos json y txt), las imágenes u otro tipo de recurso tiene licencia [Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-nc-sa/4.0/).
