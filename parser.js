@@ -45,7 +45,7 @@ function parse(dir) {
 					carreras: datosCarreras,
 					materias: datosMaterias
 				};
-				fs.writeFile(fileDatos.slice(0, -4) + ".json", JSON.stringify(response, null, 4));
+				fs.writeFile(fileDatos.slice(0, -4) + ".json", JSON.stringify(response, null, 0));
 			});
 		});
 	});
