@@ -1,0 +1,21 @@
+{
+  "name": "organizador-fiuba",
+  "version": "0.1.0",
+  "description": "[Organizador de horarios de FIUBA](https://lugfi.github.io/organizador-fiuba/)",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint **/*.js; exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lugfi/organizador-fiuba.git"
+  },
+  "author": "LUGFI",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/lugfi/organizador-fiuba/issues"
+  },
+  "homepage": "https://github.com/lugfi/organizador-fiuba#readme",
+  "devDependencies": {
+    "eslint": "^4.3.0"
+  }
+}
