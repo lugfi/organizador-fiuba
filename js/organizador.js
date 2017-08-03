@@ -900,6 +900,10 @@ $(document).ready(function () {
 
 	$("#but5_6").click(function () {
 		cargarHorarios("1Q2017", "(1er Cuatrimestre 2017)");
+	});
+
+	$("#but5_7").click(function () {
+		cargarHorarios("2Q2017", "(2do Cuatrimestre 2017)");
 	}).click();
 });
 
@@ -925,7 +929,7 @@ var indexCombinacion = 0;
 
 var cHSize = 0;
 
-var cuatriActual = "1Q2017";
+var cuatriActual = "2Q2017"; // Esto está de más. Revisar y Limpiar.
 
 var cuatriDatos = cuatriActual;
 
