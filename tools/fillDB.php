@@ -2,7 +2,7 @@
 
 //ALTER TABLE tablename AUTO_INCREMENT = 1
 
-$link = new mysqli('mysql.hostinger.com.ar', 'u271212771_spada', 'w5K2EM7436E0ZLO5Pc' , 'u271212771_dbcur');
+$link = new mysqli(HOST, USER, PASS, DBCURSOR);
 if (!$link) {
     die('Could not connect: ' . mysql_error());
 }
