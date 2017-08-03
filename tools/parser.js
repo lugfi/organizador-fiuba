@@ -245,7 +245,7 @@ const ConstDatosCarreras = [
 	},
 	{
 		nombre: "Mecánica",
-		flag: CarrerasFlags.MECANIC,
+		flag: CarrerasFlags.MECANICA,
 		materias: []
 	},
 	{
