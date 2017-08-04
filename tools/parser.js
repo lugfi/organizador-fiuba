@@ -45,7 +45,8 @@ function parse(dir) {
 					carreras: datosCarreras,
 					materias: datosMaterias
 				};
-				fs.writeFile(fileDatos.slice(0, -4) + ".json", JSON.stringify(response, null, 4));
+				var jsonPath = "../" + fileDatos.slice(0, -4) + ".json";
+				fs.writeFile(jsonPath, JSON.stringify(response, null, 0));
 			});
 		});
 	});
@@ -192,8 +193,8 @@ function numDia(str){
 	if(str.indexOf("viernes")!=-1) return 4;
 	if(str.indexOf("sábado")!=-1) return 5;
 	if(str.indexOf("miercoles")!=-1) return 2;
-	if(str.indexOf("sabado")!=-1) return 5;		
-	return -1;	
+	if(str.indexOf("sabado")!=-1) return 5;
+	return -1;
 }
 
 function numHora(str){
@@ -244,7 +245,7 @@ const ConstDatosCarreras = [
 	},
 	{
 		nombre: "Mecánica",
-		flag: CarrerasFlags.MECANIC,
+		flag: CarrerasFlags.MECANICA,
 		materias: []
 	},
 	{
@@ -300,4 +301,4 @@ function newColor() {
 	return colors[i++ % colors.length];
 }
 
-parse("raw_data");
+parse("../raw_data");
