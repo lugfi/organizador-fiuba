@@ -92,12 +92,6 @@ function llenarLista() {
 
 }
 
-function primerDocente(str) {
-	doc = str.split(" - ");
-	str = doc[0].concat(" - " + doc[1]);
-	return str;
-}
-
 function mClicked(i) {
 	if (aMaterias[i].expanded == 1) {
 		aMaterias[i].expanded = 0;
@@ -181,7 +175,7 @@ function dibujarCalendario() {
 					document.getElementById("canvas").appendChild(text);
 				}
 
-				var lines = [c[j].tipo, c[j].sede + " " + c[j].aula];
+				lines = [c[j].tipo, c[j].sede + " " + c[j].aula];
 				for (var l = 0; l < lines.length; l++) {
 					var text2 = document.createElementNS(svgNS, "text");
 					text2.setAttributeNS(null, "text-anchor", "middle");
@@ -352,10 +346,6 @@ function clearTopCanvas() {
 	}
 }
 
-function color(i) {
-	return colors[i % colors.length];
-}
-
 function escribirMensaje(str, alert) {
 	if (alert == 1) {
 		document.getElementById("msg").innerHTML = "<msgAlert>*" + str + "</msgAlert>";
@@ -370,7 +360,7 @@ function escribirMensaje(str, alert) {
 }
 
 function clickBuscar() {
-	if (document.getElementById("buscar").value = "Ingresá la materia que queres buscar") {
+	if (document.getElementById("buscar").value === "Ingresá la materia que queres buscar") {
 		document.getElementById("buscar").value = "";
 	}
 }
@@ -909,8 +899,6 @@ $(document).ready(function () {
 
 var resizing = 0;
 
-var expandible = 1;
-
 var timerMsj;
 
 var tBusqueda;
@@ -929,12 +917,6 @@ var indexCombinacion = 0;
 
 var cHSize = 0;
 
-var cuatriActual = "2Q2017"; // Esto está de más. Revisar y Limpiar.
-
-var cuatriDatos = cuatriActual;
-
-var stringDatos;
-
 var globalDatosMaterias;
 
 var globalDatosCarreras;
@@ -945,7 +927,4 @@ var mouseColInCanvas;
 
 var mouseRowInCanvas;
 
-var selector;
-
 var windowWidth = window.screen.availWidth;
-var windowHeight = window.screen.availHeight;
