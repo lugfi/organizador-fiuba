@@ -1,16 +1,19 @@
 {
     "env": {
         "browser": true,
-        "jquery": true
+        "jquery": true,
+        "node": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
+        "ecmaVersion": 6,
         "ecmaFeatures": {
             "impliedStrict": true
         }
     },
     "plugins": [],
     "rules": {
-        "eqeqeq": "warn"
+        "eqeqeq": "warn",
+        "no-console": "off"
     }
 }
