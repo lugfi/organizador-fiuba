@@ -1,6 +1,4 @@
 import csv
-import pandas as pd
-from tabula import read_pdf
 
 CUATRI = '1Q2019'
 INPUT_FILE = 'oferta_2019.csv'
@@ -45,21 +43,6 @@ class Curso():
         print(f"{self.dia} {self.inicio} {self.fin} Teórica/Práctica Aula:{self.sede}-000", file=outfile)
         # NOTE: El aula y si es teo/prac no estaba en el pdf
 
-def parse_pdf(path):
-    cols = ["Materia", "Curso", "Nombre", "Docentes", "Día", "Inicio", "Fin", "Sede", "Vacantes"]
-
-    dfr = read_pdf(path,
-                   stream=True, 
-                   guess=False,
-                   area=[[82, 13.4, 795.38, 581.8],[42.93, 14.39, 42.93+753.51, 14.39+567.8]],
-                   columns=[14.39,46.94,68.05,197.33,451.53,475.29,
-                           499.52,524.23,556.55])
-    for c in dfr.columns:
-        if "Unnamed" in c: dfr.drop(c, axis=1)
-    dfr.columns = cols
-    new_path = path.rstrip('pdf')+'csv'
-    dfr.to_csv(new_path, index=False)
-    return new_path
 
 if __name__ == "__main__":
     print(f"Parseando {INPUT_FILE}...")
