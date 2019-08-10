@@ -894,6 +894,10 @@ $(document).ready(function () {
 
 	$("#but5_7").click(function () {
 		cargarHorarios("2Q2017", "(2do Cuatrimestre 2017)");
+	});
+    
+	$("#but5_8").click(function () {
+		cargarHorarios("2Q2019", "(2do Cuatrimestre 2019)");
 	}).click();
 });
 
