@@ -515,6 +515,7 @@
         {
             "nombre": "Electr\u00f3nica",
             "materias": [
+                23,
                 0,
                 2,
                 3,
@@ -811,6 +812,7 @@
         {
             "nombre": "Inform\u00e1tica",
             "materias": [
+                23,
                 0,
                 2,
                 3,
